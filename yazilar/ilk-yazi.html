@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bu blogu nasıl kurdum — Tuğrul Mert Karakaş</title>
+<meta name="description" content="Tailwind ve GitHub Pages ile build adımı olmayan bir blog kurmak.">
+<script>
+  try {
+    const t = localStorage.getItem('tema');
+    if (t === 'koyu' || (!t && matchMedia('(prefers-color-scheme: dark)').matches))
+      document.documentElement.classList.add('dark');
+  } catch (e) {}
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<style type="text/tailwindcss">
+  @custom-variant dark (&:where(.dark, .dark *));
+</style>
+</head>
+<body class="bg-white text-slate-800 antialiased dark:bg-slate-950 dark:text-slate-200">
+
+  <div class="mx-auto max-w-2xl px-5 py-12 sm:py-20">
+
+    <nav class="mb-14">
+      <a href="../index.html" class="text-sm text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white">← Tüm yazılar</a>
+    </nav>
+
+    <article>
+      <header class="mb-10">
+        <h1 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl dark:text-white">
+          Bu blogu nasıl kurdum
+        </h1>
+        <time datetime="2026-09-19" class="mt-3 block text-sm text-slate-400 dark:text-slate-500">19 Eylül 2026</time>
+      </header>
+
+      <div class="space-y-5 text-lg leading-relaxed text-slate-700 dark:text-slate-300">
+        <p>
+          Bir blog için build adımı, statik site jeneratörü ya da sunucu şart değil.
+          Tailwind'in tarayıcı sürümü ve GitHub Pages ile birkaç HTML dosyası yetiyor.
+        </p>
+
+        <h2 class="pt-4 text-xl font-semibold text-slate-900 dark:text-white">Kurulum</h2>
+        <p>
+          Repo adını kullanıcı adımla aynı yapıp <code class="rounded bg-slate-100 px-1.5 py-0.5 text-[0.9em] dark:bg-slate-800">Settings → Pages</code>
+          bölümünden <code class="rounded bg-slate-100 px-1.5 py-0.5 text-[0.9em] dark:bg-slate-800">main</code> dalını seçmek yeterliydi.
+        </p>
+
+        <pre class="overflow-x-auto rounded-lg bg-slate-900 p-4 text-sm leading-relaxed text-slate-100 dark:bg-slate-900/70"><code>git add -A
+git commit -m "Yeni yazı"
+git push</code></pre>
+
+        <blockquote class="border-l-2 border-sky-500 pl-4 italic text-slate-600 dark:text-slate-400">
+          Push'tan bir dakika sonra site güncelleniyor.
+        </blockquote>
+
+        <h2 class="pt-4 text-xl font-semibold text-slate-900 dark:text-white">Yeni yazı eklemek</h2>
+        <p>
+          Bu dosyayı kopyalayıp içeriğini değiştiriyorum, sonra ana sayfadaki listeye
+          bir kart ekliyorum. Hepsi bu.
+        </p>
+      </div>
+    </article>
+
+    <footer class="mt-16 border-t border-slate-200 pt-6 text-sm text-slate-400 dark:border-slate-800 dark:text-slate-500">
+      © 2026 Tuğrul Mert Karakaş
+    </footer>
+
+  </div>
+</body>
+</html>
