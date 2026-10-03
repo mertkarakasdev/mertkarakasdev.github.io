@@ -87,6 +87,17 @@ params:
       Yazılım geliştiriyorum. Burada öğrendiklerimi, üzerinde çalıştığım
       projeleri ve aklımda kalan notları yazıyorum.
 
+  # Ana sayfadaki hava widget'ı
+  windy:
+    anaSayfa: true        # false yaparsan ana sayfadan kalkar
+    otomatik: false       # true: sayfa açılır açılmaz konum izni ister
+    height: "380"
+    lat: "41.0082"        # izin yoksa gösterilecek varsayılan konum
+    lon: "28.9784"
+    yer: "İstanbul"
+    zoom: "8"
+    overlay: "wind"
+
   socialIcons:
     - name: github
       title: "GitHub"
