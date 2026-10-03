@@ -39,6 +39,10 @@ menu:
       name: "Hakkımda"
       url: /hakkimda/
       weight: 5
+    - identifier: hava
+      name: "Hava"
+      url: /hava/
+      weight: 7
     - identifier: arsiv
       name: "Arşiv"
       url: /arsiv/
