@@ -41,8 +41,10 @@ menu:
       weight: 5
     - identifier: hava
       name: "Hava"
+      title: "Hava durumu"
       url: /hava/
       weight: 7
+      post: '<span class="windy-nav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg><span class="windy-nav-derece"></span><span class="windy-nav-yer"></span></span>'
     - identifier: arsiv
       name: "Arşiv"
       url: /arsiv/
@@ -87,12 +89,11 @@ params:
       Yazılım geliştiriyorum. Burada öğrendiklerimi, üzerinde çalıştığım
       projeleri ve aklımda kalan notları yazıyorum.
 
-  # Ana sayfadaki hava widget'ı
+  # Hava durumu (navbar rozeti + /hava/ haritası)
   windy:
-    anaSayfa: true        # false yaparsan ana sayfadan kalkar
-    otomatik: false       # true: sayfa açılır açılmaz konum izni ister
-    height: "380"
-    lat: "41.0082"        # izin yoksa gösterilecek varsayılan konum
+    apiKey: ""            # api.windy.com → Point Forecast API anahtarı. Boşken rozet çıkmaz.
+    model: "gfs"
+    lat: "41.0082"        # konum izni yoksa kullanılacak varsayılan
     lon: "28.9784"
     yer: "İstanbul"
     zoom: "8"
