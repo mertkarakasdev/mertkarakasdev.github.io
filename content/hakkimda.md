@@ -26,4 +26,4 @@ değer bulduğum şeyleri yazıyorum.
 Bana ulaşmak istersen:
 
 - E-posta: [karakasdev@gmail.com](mailto:karakasdev@gmail.com)
-- GitHub: [@KULLANICIADIN](https://github.com/KULLANICIADIN)
+- GitHub: [@mertkarakasdev](https://github.com/mertkarakasdev)

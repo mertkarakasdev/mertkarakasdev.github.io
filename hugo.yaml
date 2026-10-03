@@ -1,4 +1,4 @@
-baseURL: "https://KULLANICIADIN.github.io/"
+baseURL: "https://mertkarakasdev.github.io/"
 title: "Tuğrul Mert Karakaş"
 theme: "PaperMod"
 
@@ -86,10 +86,10 @@ params:
   socialIcons:
     - name: github
       title: "GitHub"
-      url: "https://github.com/KULLANICIADIN"
+      url: "https://github.com/mertkarakasdev"
     - name: x
       title: "X"
-      url: "https://x.com/KULLANICIADIN"
+      url: "https://x.com/mertkarakasdev"
     - name: email
       title: "E-posta"
       url: "mailto:karakasdev@gmail.com"
@@ -99,9 +99,10 @@ params:
 
   assets:
     disableHLJS: true
-    favicon: "/favicon.ico"
-    favicon16x16: "/favicon-16x16.png"
-    favicon32x32: "/favicon-32x32.png"
+    # Favicon eklemek için dosyaları static/ altına koyup bu satırları aç:
+    # favicon: "/favicon.ico"
+    # favicon16x16: "/favicon-16x16.png"
+    # favicon32x32: "/favicon-32x32.png"
 
   fuseOpts:
     isCaseSensitive: false
