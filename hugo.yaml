@@ -1,0 +1,109 @@
+baseURL: "https://KULLANICIADIN.github.io/"
+title: "Tuğrul Mert Karakaş"
+theme: "PaperMod"
+
+locale: "tr"
+defaultContentLanguage: "tr"
+hasCJKLanguage: false
+
+enableRobotsTXT: true
+enableEmoji: true
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+
+pagination:
+  pagerSize: 10
+
+minify:
+  disableXML: true
+
+# PaperMod'un arama sayfası için JSON indeksi gerekir
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
+
+markup:
+  highlight:
+    noClasses: false
+    codeFences: true
+    guessSyntax: true
+    lineNos: false
+    style: monokai
+
+menu:
+  main:
+    - identifier: arsiv
+      name: "Arşiv"
+      url: /arsiv/
+      weight: 10
+    - identifier: etiketler
+      name: "Etiketler"
+      url: /tags/
+      weight: 20
+    - identifier: ara
+      name: "Ara"
+      url: /ara/
+      weight: 30
+
+params:
+  env: production          # Google Analytics / SEO etiketleri için
+  author: "Tuğrul Mert Karakaş"
+  description: "Yazılım üzerine notlar, denemeler ve projeler."
+  keywords: ["blog", "yazılım", "notlar"]
+  DateFormat: "2 January 2006"
+
+  defaultTheme: auto       # auto | light | dark
+  disableThemeToggle: false
+
+  ShowReadingTime: true
+  ShowWordCount: false
+  ShowShareButtons: true
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowRssButtonInSectionTermList: true
+  ShowAllPagesInArchive: true
+  ShowToc: true
+  TocOpen: false
+  hidemeta: false
+  hideSummary: false
+  comments: false
+
+  # Ana sayfadaki karşılama bloğu
+  homeInfoParams:
+    Title: "Merhaba 👋"
+    Content: >
+      Yazılım geliştiriyorum. Burada öğrendiklerimi, üzerinde çalıştığım
+      projeleri ve aklımda kalan notları yazıyorum.
+
+  socialIcons:
+    - name: github
+      title: "GitHub"
+      url: "https://github.com/KULLANICIADIN"
+    - name: x
+      title: "X"
+      url: "https://x.com/KULLANICIADIN"
+    - name: email
+      title: "E-posta"
+      url: "mailto:karakasdev@gmail.com"
+    - name: rss
+      title: "RSS"
+      url: "index.xml"
+
+  assets:
+    disableHLJS: true
+    favicon: "/favicon.ico"
+    favicon16x16: "/favicon-16x16.png"
+    favicon32x32: "/favicon-32x32.png"
+
+  fuseOpts:
+    isCaseSensitive: false
+    shouldSort: true
+    location: 0
+    distance: 1000
+    threshold: 0.4
+    minMatchCharLength: 0
+    keys: ["title", "permalink", "summary", "content"]
