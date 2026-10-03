@@ -34,3 +34,18 @@
   .post-entry:hover::after,
   .post-entry:focus-within::after { transform: none; }
 }
+
+/* Etiket / paylaş / sayfalama kutularının çerçeve ve arka planını kaldır.
+   (Tema post-single.css'te bunlara kutu stili veriyor; burada geri alınıyor.
+   .post-tags a'nın arka planı ayrı bir kuraldan geldiği için ona dokunulmuyor.) */
+.post-tags a,
+.share-buttons,
+.paginav {
+  border: 0;
+  border-radius: 0;
+}
+
+.share-buttons,
+.paginav {
+  background: none;
+}
