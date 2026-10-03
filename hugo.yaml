@@ -35,6 +35,10 @@ markup:
 
 menu:
   main:
+    - identifier: hakkimda
+      name: "Hakkımda"
+      url: /hakkimda/
+      weight: 5
     - identifier: arsiv
       name: "Arşiv"
       url: /arsiv/
