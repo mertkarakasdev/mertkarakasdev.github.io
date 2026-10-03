@@ -1,0 +1,36 @@
+/* Yazı kartlarının sağ alt köşesinde bağlantı oku (arrow-up-left) */
+
+:root {
+  --ok-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M17 17 7 7'/%3E%3Cpath d='M7 17V7h10'/%3E%3C/svg%3E");
+}
+
+.post-entry::after {
+  content: "";
+  position: absolute;
+  right: var(--gap);
+  bottom: var(--gap);
+  width: 18px;
+  height: 18px;
+  background-color: var(--secondary);
+  -webkit-mask: var(--ok-arrow) center / contain no-repeat;
+  mask: var(--ok-arrow) center / contain no-repeat;
+  transition: background-color .25s ease, transform .25s ease;
+  pointer-events: none;   /* tıklama .entry-link'e gitsin */
+}
+
+.post-entry:hover::after,
+.post-entry:focus-within::after {
+  background-color: var(--primary);
+  transform: translate(-2px, -2px);
+}
+
+/* Tarih/okuma süresi okun altına girmesin */
+.post-entry .entry-footer {
+  padding-inline-end: 28px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .post-entry::after { transition: none; }
+  .post-entry:hover::after,
+  .post-entry:focus-within::after { transform: none; }
+}
