@@ -812,9 +812,12 @@ body {
   .yazi-oku-baslik { display: none; }
 }
 
-/* Sonraki oku başlık alanının sağ ucunda (yazi_oklari.html'deki betik taşır) */
+/* Oklar başlık alanında (yazi_oklari.html'deki betik taşır), başlıkla dikey ortalı:
+   önceki başlığın dışında solda, sonraki içinde sağ uçta */
 @media (min-width: 1000px) {
-  .post-header.oklu { position: relative; padding-inline-end: 64px; }
+  .post-header.oklu { position: relative; }
+  .post-header.oklu-sag { padding-inline-end: 64px; }
+  .post-header .yazi-oku-sol { left: auto; right: calc(100% + 40px); top: 50%; }
   .post-header .yazi-oku-sag { left: auto; right: 0; top: 50%; }
   /* İçerik kenarından başlayan boşluk daha geniş: balon 1000px'ten itibaren sığar */
   .post-header .yazi-oku-sag .yazi-oku-baslik {

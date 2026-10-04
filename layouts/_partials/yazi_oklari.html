@@ -18,11 +18,16 @@
   {{- end }}
 </nav>
 <script>
-  // Sonraki oku başlık alanının sağ ucuna taşı (JS yoksa yan tarafta kalır)
+  // Okları başlık alanına taşı: önceki dışında solda, sonraki içinde sağ uçta.
+  // JS yoksa ikisi de yazının yanlarında kalır.
   (function () {
-    var sag = document.currentScript.previousElementSibling.querySelector('.yazi-oku-sag');
+    var nav = document.currentScript.previousElementSibling;
     var baslik = document.querySelector('.post-single .post-header');
-    if (sag && baslik) { baslik.appendChild(sag); baslik.classList.add('oklu'); }
+    if (!baslik) return;
+    var sol = nav.querySelector('.yazi-oku-sol'), sag = nav.querySelector('.yazi-oku-sag');
+    if (sol) baslik.appendChild(sol);
+    if (sag) { baslik.appendChild(sag); baslik.classList.add('oklu-sag'); }
+    baslik.classList.add('oklu');
   })();
 </script>
 {{- end }}
