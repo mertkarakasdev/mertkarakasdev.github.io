@@ -90,7 +90,14 @@ params:
   hidemeta: false
   hideSummary: false
   disableSpecial1stPost: true   # ilk yazı da diğerleri gibi normal kart
-  comments: false
+  comments: true
+
+  # Yorumlar (giscus, GitHub Discussions). Sayfa bazında kapatmak için: comments: false
+  giscus:
+    repo: "mertkarakasdev/mertkarakasdev.github.io"
+    repoId: "R_kgDOU6j8GQ"
+    category: "Announcements"
+    categoryId: "DIC_kwDOU6j8Gc4DHCRp"
 
   # Footer'da logonun altındaki kısa tanım
   footer:

@@ -8,6 +8,7 @@ ShowBreadCrumbs: false
 ShowPostNavLinks: false
 hidemeta: true
 ShowToc: false
+comments: false
 ---
 
 *Son güncelleme: 4 Ekim 2026*
@@ -63,6 +64,18 @@ kaydeder. Bunlar cihazından dışarı gönderilmez:
 | `cerez-onayi` | Çerez bandındaki tercihin |
 | `pref-theme` | Açık/koyu tema tercihin |
 | `menu-scroll-position` | Menünün kaydırma konumu |
+| `yorumlar-acik` | Yorum alanını bir kez açtıysan sonraki yazılarda da açılması |
+
+## Yorumlar
+
+Yazıların altındaki yorum alanı [giscus](https://giscus.app) ile çalışır; yorumlar ve tepkiler
+bu sitenin GitHub Discussions bölümünde saklanır. Yorum alanı sen **Yorumları göster** düğmesine
+basana kadar yüklenmez. Bastığında giscus.app ve GitHub'a bağlanılır.
+
+Yorum yapmak ya da tepki bırakmak için GitHub hesabınla giriş yapman gerekir. Yorumun GitHub'da
+herkese açık olarak yayımlanır ve GitHub hesabınla ilişkilendirilir. giscus'un verileri nasıl
+işlediğini [giscus gizlilik politikası](https://github.com/giscus/giscus/blob/main/PRIVACY-POLICY.md)'nda
+okuyabilirsin.
 
 ## Barındırma
 

@@ -8,6 +8,7 @@ ShowBreadCrumbs: false
 ShowPostNavLinks: false
 hidemeta: true
 ShowToc: false
+comments: false
 ---
 
 Ben **Tuğrul Mert Karakaş**. 2020'den beri freelance çalışan bir full stack web

@@ -1,0 +1,57 @@
+{{- /* Yorumlar: giscus (GitHub Discussions). Düğmeye basılana kadar giscus.app'e istek gitmez.
+       Ayarlar hugo.yaml > params.giscus */ -}}
+{{- with site.Params.giscus }}
+<section class="yorumlar" id="yorumlar" aria-labelledby="yorumlar-baslik"
+         data-repo="{{ .repo }}" data-repo-id="{{ .repoId }}"
+         data-category="{{ .category }}" data-category-id="{{ .categoryId }}">
+  <h2 id="yorumlar-baslik">Yorumlar</h2>
+  <div class="yorumlar-kapali">
+    <p>Yorumlar ve tepkiler GitHub Discussions üzerinden çalışır. Yüklendiğinde giscus.app ve GitHub'a bağlanılır; yorum yapmak için GitHub hesabı gerekir.</p>
+    <button type="button" class="yorumlar-dugme">Yorumları göster</button>
+  </div>
+  <div class="yorumlar-alan"></div>
+</section>
+<script>
+(function () {
+  var kok = document.getElementById('yorumlar');
+  var alan = kok.querySelector('.yorumlar-alan');
+  var ANAHTAR = 'yorumlar-acik';
+
+  function tema() {
+    return document.documentElement.dataset.theme === 'dark' ? 'transparent_dark' : 'light';
+  }
+
+  function yukle() {
+    if (alan.dataset.yuklendi) return;
+    alan.dataset.yuklendi = '1';
+    kok.classList.add('acik');
+    var s = document.createElement('script');
+    var ayar = {
+      repo: kok.dataset.repo, 'repo-id': kok.dataset.repoId,
+      category: kok.dataset.category, 'category-id': kok.dataset.categoryId,
+      mapping: 'pathname', strict: '1', 'reactions-enabled': '1', 'emit-metadata': '0',
+      'input-position': 'top', theme: tema(), lang: 'tr', loading: 'lazy'
+    };
+    s.src = 'https://giscus.app/client.js';
+    s.async = true;
+    s.crossOrigin = 'anonymous';
+    Object.keys(ayar).forEach(function (k) { s.setAttribute('data-' + k, ayar[k]); });
+    alan.appendChild(s);
+  }
+
+  kok.querySelector('.yorumlar-dugme').addEventListener('click', function () {
+    try { localStorage.setItem(ANAHTAR, '1'); } catch (e) {}
+    yukle();
+  });
+
+  // Ziyaretçi daha önce açtıysa doğrudan yükle
+  try { if (localStorage.getItem(ANAHTAR) === '1') yukle(); } catch (e) {}
+
+  // Site teması değişince yorum alanı da değişsin
+  new MutationObserver(function () {
+    var f = alan.querySelector('iframe.giscus-frame');
+    if (f) f.contentWindow.postMessage({ giscus: { setConfig: { theme: tema() } } }, 'https://giscus.app');
+  }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+})();
+</script>
+{{- end }}
