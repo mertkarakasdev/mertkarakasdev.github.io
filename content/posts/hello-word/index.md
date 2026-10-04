@@ -29,4 +29,4 @@ cover:
 İlk yazıma dünyayı bilmem kaçıncı defa selamlamanın mutluluğuyla yazıyorum! 😅 Umarım sıkılmadan ve sıkmadan öğrendiklerimi, notlarımı sizlerle paylaşabilirim.
 
 Gelecek heyecan verici peki ya şimdi? Çayınızı, kahvenizi eksik etmeyin 🙂 Bilgi okyanusunun içerisine birlikte balıklama dalıyoruz. 3, 2, 1 veee action!
-
+![](matrix-kirmizi-ve-mavi-hap-neyi-temsil-ediyor.jpg)
