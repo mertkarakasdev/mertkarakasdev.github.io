@@ -25,3 +25,18 @@
   margin: 0 !important;
   justify-content: flex-end !important;
 }
+
+/* Tepki menüsü: düğme sağ kenarda olduğu için sola doğru açılsın (sağa açılınca iframe kesiyordu).
+   Sadece üstteki tepki satırı; yorumların altındaki tepki menülerine dokunulmaz. */
+.gsc-reactions .gsc-reactions-popover {
+  inset-inline-start: auto !important;
+  inset-inline-end: -.375rem !important;
+}
+.gsc-reactions .gsc-reactions-popover.open:before {
+  inset-inline-start: auto !important;
+  inset-inline-end: 9px !important;
+}
+.gsc-reactions .gsc-reactions-popover.open:after {
+  inset-inline-start: auto !important;
+  inset-inline-end: 10px !important;
+}
