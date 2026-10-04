@@ -52,8 +52,8 @@
 
 /* Navbar'daki satır içi logo — currentColor ile temaya uyar */
 .logo a svg {
-  height: 26px;
+  height: 22px;
   width: auto;
-  vertical-align: -6px;
+  vertical-align: -4px;
   margin-inline-end: 9px;
 }
