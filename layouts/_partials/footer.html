@@ -1,17 +1,42 @@
 {{- if not (.Param "hideFooter") }}
-<footer class="footer">
+<footer class="site-footer">
+  <div class="site-footer-ust">
+    <div class="site-footer-marka">
+      <a class="site-footer-logo" href="{{ "" | absLangURL }}">
+        {{- with site.Params.label.iconSVG }}{{ . | safeHTML }}{{ end -}}
+        <span>{{ site.Title }}</span>
+      </a>
+      {{- with site.Params.footer.text }}
+      <p class="site-footer-not">{{ . | markdownify }}</p>
+      {{- end }}
+    </div>
+    {{- with site.Params.socialIcons }}
+    <nav class="site-footer-sosyal" aria-label="Sosyal bağlantılar">
+      {{- range . }}
+      {{- $etiket := .title | default .name }}
+      <a href="{{ trim .url " " | safeURL }}" aria-label="{{ $etiket }}" title="{{ $etiket }}"
+         {{- if not (hasPrefix .url "mailto:") }} target="_blank" rel="noopener noreferrer me"{{ end }}>
+        {{- partial "svg.html" . -}}
+      </a>
+      {{- end }}
+    </nav>
+    {{- end }}
+  </div>
+  <div class="site-footer-alt">
     {{- if not site.Params.footer.hideCopyright }}
-        {{- if site.Copyright }}
-        <span>{{ site.Copyright | markdownify }}</span>
-        {{- else }}
-        <span>&copy; {{ now.Year }} <a href="{{ "" | absLangURL }}">{{ site.Title }}</a></span>
-        {{- end }}
+    <span>
+      {{- if site.Copyright }}{{ site.Copyright | markdownify }}{{ else }}&copy; {{ now.Year }} {{ site.Title }}{{ end -}}
+    </span>
     {{- end }}
-    <span> · <a href="{{ "gizlilik/" | relLangURL }}">Gizlilik</a></span>
-    {{- /* <a href="#"> değil button: tema "#" linklerini yakalayıp scrollIntoView çağırıyor */}}
-    {{- if site.Config.Services.GoogleAnalytics.ID }}
-        <span> · <button type="button" id="cerez-tercihleri" class="cerez-tercih">Çerez tercihleri</button></span>
-    {{- end }}
+    <span class="site-footer-yasal">
+      <a href="{{ "gizlilik/" | relLangURL }}">Gizlilik</a>
+      {{- /* <a href="#"> değil button: tema "#" linklerini yakalayıp scrollIntoView çağırıyor */}}
+      {{- if site.Config.Services.GoogleAnalytics.ID }}
+      <span aria-hidden="true">·</span>
+      <button type="button" id="cerez-tercihleri" class="cerez-tercih">Çerez tercihleri</button>
+      {{- end }}
+    </span>
+  </div>
 </footer>
 {{- end }}
 

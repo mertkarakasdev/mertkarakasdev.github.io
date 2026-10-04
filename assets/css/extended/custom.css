@@ -136,7 +136,7 @@ main.main > :nth-child(n+8) { animation-delay: .49s; }  /* uzun listelerde bekle
 .cerez-kabul:hover { background: var(--primary); opacity: .85; }
 .cerez-btn:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
 
-/* Footer'daki "Çerez tercihleri" — footer linkleriyle aynı görünüm */
+/* Footer'daki "Çerez tercihleri" — düğme ama footer linki gibi görünür */
 .cerez-tercih {
   font: inherit;
   color: inherit;
@@ -144,10 +144,7 @@ main.main > :nth-child(n+8) { animation-delay: .49s; }  /* uzun listelerde bekle
   border: 0;
   padding: 0;
   cursor: pointer;
-  text-decoration: underline;
-  text-underline-offset: .25rem;
 }
-.cerez-tercih:hover { color: var(--primary); }
 
 @media (max-width: 520px) {
   .cerez-bandi { flex-direction: column; align-items: stretch; gap: 12px; }
@@ -164,4 +161,110 @@ main.main > :nth-child(n+8) { animation-delay: .49s; }  /* uzun listelerde bekle
   text-decoration: underline;
   text-underline-offset: .2rem;
   white-space: nowrap;
+}
+
+
+/* ---------- Site footer ----------
+   Temanın tek satırlık .footer'ı yerine. Genişlik ve boşluklar içerik
+   alanıyla (--main-width, --gap) hizalı, renkler tema değişkenlerinden. */
+
+.site-footer {
+  width: 100%;                        /* esnek sütunda içeriğe büzülmesin */
+  max-width: calc(var(--main-width) + var(--gap) * 2);
+  margin: 0 auto;
+  padding: 0 var(--gap);
+  color: var(--secondary);
+  font-size: 13px;
+}
+
+.site-footer-ust {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 24px;
+  padding: 28px 0 18px;
+  border-top: 1px solid var(--border);
+}
+
+.site-footer-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--primary);
+  font-size: 15px;
+  font-weight: 600;
+}
+.site-footer-logo svg { width: 18px; height: 18px; flex: none; }
+
+.site-footer-not { margin: 6px 0 0; line-height: 1.5; }
+.site-footer-not p { margin: 0; }
+
+.site-footer-sosyal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  margin-inline-end: -7px;            /* ikon dolgusunu içerik kenarına hizala */
+}
+.site-footer-sosyal a {
+  display: inline-flex;
+  padding: 7px;
+  border-radius: 8px;
+  color: var(--secondary);
+  transition: color .15s ease, background-color .15s ease;
+}
+.site-footer-sosyal a:hover { color: var(--primary); background: var(--code-bg); }
+.site-footer-sosyal svg { width: 18px; height: 18px; }
+
+.site-footer-alt {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  padding: 0 0 28px;
+  font-size: 12px;
+}
+
+.site-footer-yasal { display: inline-flex; align-items: center; gap: 8px; }
+
+.site-footer-alt a,
+.site-footer-alt .cerez-tercih {
+  color: inherit;
+  text-decoration: none;
+  text-underline-offset: .25rem;
+}
+.site-footer-alt a:hover,
+.site-footer-alt .cerez-tercih:hover {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+.site-footer a:focus-visible,
+.site-footer button:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+@media (max-width: 600px) {
+  .site-footer-ust,
+  .site-footer-alt { flex-direction: column; align-items: flex-start; }
+  .site-footer-sosyal { margin-inline: -7px 0; }
+}
+
+/* ---------- Footer'ı alta oturt ----------
+   Tema main'e min-height: 100vh - header(60px) - footer(60px) veriyor; footer
+   büyüyünce (ve mobilde menü ikinci satıra inince) kısa sayfalar gereksiz
+   kayıyordu. Bunun yerine esnek sütun: main kalan boşluğu doldurur.
+   main'in "margin: auto"su esnek öğede genişliği içeriğe büzdüğü için
+   width: 100% ile max-width'e kadar açılıyor. */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+.main {
+  flex: 1 0 auto;
+  width: 100%;
+  min-height: 0;
 }

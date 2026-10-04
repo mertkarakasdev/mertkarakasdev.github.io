@@ -98,6 +98,10 @@ params:
       Full stack web geliştirici ve grafik tasarımcıyım. Burada öğrendiklerimi,
       üzerinde çalıştığım projeleri ve not almaya değer bulduğum şeyleri yazıyorum.
 
+  # Footer'da logonun altındaki kısa tanım
+  footer:
+    text: "Full stack web geliştirici ve grafik tasarımcı."
+
   socialIcons:
     - name: github
       title: "GitHub"
@@ -105,12 +109,15 @@ params:
     - name: x
       title: "X"
       url: "https://x.com/tmertkarakas"
+    - name: linkedin
+      title: "LinkedIn"
+      url: "https://www.linkedin.com/in/mertkarakasdev/"
     - name: email
       title: "E-posta"
       url: "mailto:karakasdev@gmail.com"
     - name: rss
       title: "RSS"
-      url: "index.xml"
+      url: "/index.xml"
 
   assets:
     disableHLJS: true
