@@ -1,7 +1,7 @@
 {{- /* Kullandıklarım: sadece logolar; isim hover ve klavye odağında görünür.
        Veri: data/stack.yaml — ikonlar assets/ikonlar/ altında, siteye gömülü (dış istek yok). */ -}}
 <div class="stack">
-  {{- range site.Data.stack }}
+  {{- range hugo.Data.stack }}
   <div class="stack-grup">
     <span class="stack-baslik">{{ .grup }}</span>
     <ul class="stack-liste">
