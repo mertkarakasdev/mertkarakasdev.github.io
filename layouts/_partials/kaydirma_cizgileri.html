@@ -1,0 +1,71 @@
+{{- /* Ana sayfa: sağda her yazı kartı için bir çizgi. Ekranın ortasındaki kartın çizgisi büyür.
+       Kart değişince Android'de kısa titreşim, iOS 18+'da switch yöntemiyle hafif dokunsal geri bildirim.
+       (Mac touchpad haptiğine web'den erişilemiyor.) */ -}}
+<nav class="cizgiler" aria-label="Yazılar" hidden></nav>
+<label class="haptik-ios" aria-hidden="true"><input type="checkbox" switch tabindex="-1"></label>
+<script>
+(function () {
+  var nav = document.currentScript.previousElementSibling.previousElementSibling;
+  var iosAnahtar = nav.nextElementSibling;
+  var kartlar = [].slice.call(document.querySelectorAll('main .post-entry'));
+  if (kartlar.length < 2) return;
+
+  var cizgiler = kartlar.map(function (kart, i) {
+    var baslik = (kart.querySelector('.entry-header h2') || {}).textContent || ('Yazı ' + (i + 1));
+    baslik = baslik.trim();
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'cizgi';
+    b.setAttribute('aria-label', baslik);
+    b.innerHTML = '<span class="cizgi-etiket"></span>';
+    b.firstChild.textContent = baslik;
+    b.addEventListener('click', function () {
+      kart.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'center' });
+    });
+    nav.appendChild(b);
+    return b;
+  });
+  nav.hidden = false;
+
+  function titret() {
+    if (navigator.vibrate) { try { navigator.vibrate(8); } catch (e) {} return; }
+    // iOS 18+: switch kontrolünü değiştirmek sistem haptiğini tetikler (resmi API değil)
+    try { iosAnahtar.click(); } catch (e) {}
+  }
+
+  var etkin = -1;
+  function guncelle() {
+    var orta = innerHeight / 2, enIyi = 0, enAz = Infinity;
+    // Sayfanın en üstündeysek ilk, en altındaysak son kart
+    if (scrollY <= 2) {
+      enIyi = 0;
+    } else if (innerHeight + scrollY >= document.documentElement.scrollHeight - 2) {
+      enIyi = kartlar.length - 1;
+    } else {
+      kartlar.forEach(function (k, i) {
+        var r = k.getBoundingClientRect();
+        var fark = Math.abs((r.top + r.bottom) / 2 - orta);
+        if (fark < enAz) { enAz = fark; enIyi = i; }
+      });
+    }
+    if (enIyi === etkin) return;
+    if (etkin !== -1) {
+      cizgiler[etkin].classList.remove('etkin');
+      cizgiler[etkin].removeAttribute('aria-current');
+      titret();
+    }
+    etkin = enIyi;
+    cizgiler[etkin].classList.add('etkin');
+    cizgiler[etkin].setAttribute('aria-current', 'true');
+  }
+
+  var bekliyor = false;
+  addEventListener('scroll', function () {
+    if (bekliyor) return;
+    bekliyor = true;
+    requestAnimationFrame(function () { bekliyor = false; guncelle(); });
+  }, { passive: true });
+  addEventListener('resize', guncelle);
+  guncelle();
+})();
+</script>

@@ -834,3 +834,78 @@ body {
 /* Liste sayfalarının altındaki sayfalama (page-footer) gizli.
    Not: 10'dan eski yazılara ana sayfadan değil Arşiv, etiketler, arama ve oklarla ulaşılır. */
 .page-footer { display: none; }
+
+/* ---------- Ana sayfa: sağdaki kaydırma çizgileri ---------- */
+.cizgiler {
+  position: fixed;
+  right: 20px;
+  top: 50%;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  translate: 0 -50%;
+}
+.cizgiler[hidden] { display: none; }
+.cizgi {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 36px;
+  height: 12px;            /* tıklama alanı; çizginin kendisi ::before */
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+.cizgi::before {
+  content: "";
+  width: 12px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--secondary);
+  opacity: .45;
+  transition: width .3s cubic-bezier(.2, .7, .2, 1), height .3s ease, opacity .25s ease, background-color .25s ease;
+}
+.cizgi:hover::before { opacity: .8; width: 18px; }
+.cizgi.etkin::before { width: 30px; height: 3px; opacity: 1; background: var(--primary); }
+.cizgi:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; border-radius: 4px; }
+
+/* Üzerine gelince yazının başlığı soldan belirir */
+.cizgi-etiket {
+  position: absolute;
+  right: calc(100% + 8px);
+  top: 50%;
+  translate: 6px -50%;
+  max-width: 220px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: var(--primary);
+  color: var(--theme);
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .15s ease, translate .2s ease;
+}
+.cizgi:hover .cizgi-etiket,
+.cizgi:focus-visible .cizgi-etiket { opacity: 1; translate: 0 -50%; }
+
+/* iOS haptik yöntemi için görünmez switch */
+.haptik-ios { position: fixed; width: 1px; height: 1px; overflow: hidden; opacity: 0; pointer-events: none; clip-path: inset(50%); }
+
+/* Mobilde kart kenarıyla ekran kenarı arasındaki 14px boşluğa sığsın */
+@media (max-width: 768px) {
+  .cizgiler { right: 1px; }
+  .cizgi { width: 12px; height: 10px; }
+  .cizgi::before { width: 5px; }
+  .cizgi.etkin::before { width: 10px; }
+  .cizgi-etiket { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cizgi::before, .cizgi-etiket { transition: none; }
+}
