@@ -268,3 +268,104 @@ body {
   width: 100%;
   min-height: 0;
 }
+
+/* ---------- Mobil hamburger menü ---------- */
+.menu-dugme { display: none; }
+
+@media screen and (max-width: 768px) {
+  .header-nav {
+    position: relative;
+    flex-wrap: nowrap;
+    align-items: center;
+  }
+
+  /* Logo + isim + tema düğmesi tek satırda kalsın, hamburger'e yer açılsın */
+  .logo { flex-wrap: nowrap; min-width: 0; }
+  .logo a { font-size: 20px; white-space: nowrap; }
+
+  /* Düğme: üç çizgi → X */
+  .menu-dugme {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    margin-inline-end: -8px;
+    padding: 0 9px;
+    background: none;
+    border: 0;
+    border-radius: 8px;
+    color: var(--primary);
+    cursor: pointer;
+  }
+  .menu-dugme:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+  .menu-dugme-cizgi {
+    display: block;
+    height: 2px;
+    width: 100%;
+    border-radius: 2px;
+    background: currentColor;
+    transition: transform .3s cubic-bezier(.2, .7, .2, 1), opacity .2s ease;
+    transform-origin: center;
+  }
+  .menu-acik .menu-dugme-cizgi:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .menu-acik .menu-dugme-cizgi:nth-child(2) { opacity: 0; transform: scaleX(.2); }
+  .menu-acik .menu-dugme-cizgi:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* Menü: navbar'ın altından açılan panel */
+  #menu {
+    position: absolute;
+    top: 100%;
+    left: var(--gap);
+    right: var(--gap);
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 6px;
+    overflow: visible;
+    white-space: normal;
+    line-height: 1.4;
+    background: var(--entry);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, .18);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px) scale(.98);
+    transform-origin: top right;
+    transition: opacity .22s ease, transform .28s cubic-bezier(.2, .7, .2, 1), visibility 0s linear .28s;
+  }
+  .menu-acik #menu {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition: opacity .22s ease, transform .28s cubic-bezier(.2, .7, .2, 1), visibility 0s;
+  }
+  #menu li { margin: 0; }
+  #menu li + li { margin-inline-start: 0; }
+  #menu a {
+    display: block;
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-size: 16px;
+  }
+  #menu a:hover { background: var(--code-bg); }
+
+  /* Öğeler sırayla belirsin */
+  #menu li {
+    opacity: 0;
+    transform: translateY(-4px);
+    transition: opacity .2s ease, transform .25s ease;
+  }
+  .menu-acik #menu li { opacity: 1; transform: none; }
+  .menu-acik #menu li:nth-child(2) { transition-delay: .04s; }
+  .menu-acik #menu li:nth-child(3) { transition-delay: .08s; }
+  .menu-acik #menu li:nth-child(4) { transition-delay: .12s; }
+  .menu-acik #menu li:nth-child(n+5) { transition-delay: .16s; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menu-dugme-cizgi, #menu, #menu li { transition: none !important; }
+}
