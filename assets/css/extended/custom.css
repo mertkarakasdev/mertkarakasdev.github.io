@@ -49,3 +49,11 @@
 .paginav {
   background: none;
 }
+
+/* Navbar'daki satır içi logo — currentColor ile temaya uyar */
+.logo a svg {
+  height: 26px;
+  width: auto;
+  vertical-align: -6px;
+  margin-inline-end: 9px;
+}
