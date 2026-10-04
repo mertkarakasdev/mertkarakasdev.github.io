@@ -830,3 +830,7 @@ body {
   .yazi-oku, .yazi-oku-baslik { transition: none; animation: none; }
   .yazi-oku:hover, .yazi-oku:focus-visible { transform: none; }
 }
+
+/* Liste sayfalarının altındaki sayfalama (page-footer) gizli.
+   Not: 10'dan eski yazılara ana sayfadan değil Arşiv, etiketler, arama ve oklarla ulaşılır. */
+.page-footer { display: none; }
