@@ -1,0 +1,9 @@
+{{- /* Kullanım: {{< buton href="mailto:..." >}}Metin{{< /buton >}} */ -}}
+{{- $href := .Get "href" -}}
+<p class="buton-kap">
+  <a class="buton" href="{{ $href | safeURL }}"
+     {{- if hasPrefix $href "http" }} target="_blank" rel="noopener noreferrer"{{ end }}>
+    <span>{{ .Inner | strings.TrimSpace }}</span>
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+  </a>
+</p>

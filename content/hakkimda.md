@@ -32,7 +32,9 @@ olduğum için projeleri fikir aşamasından yayına kadar tek başıma yürüte
 
 ## İletişim
 
-Tam zamanlı pozisyonlara açığım — yazmaktan çekinme.
+Tam zamanlı pozisyonlara açığım. Yazmaktan çekinme.
+
+{{< buton href="mailto:karakasdev@gmail.com?subject=Merhaba%20Mert" >}}İletişime geçelim{{< /buton >}}
 
 - E-posta: [karakasdev@gmail.com](mailto:karakasdev@gmail.com)
 - GitHub: [@mertkarakasdev](https://github.com/mertkarakasdev)

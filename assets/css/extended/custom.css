@@ -551,3 +551,28 @@ body {
   .cerez-modal[open], .cerez-modal::backdrop { animation: none; }
   .anahtar-iz, .anahtar-iz::after { transition: none; }
 }
+
+/* ---------- Buton (shortcode) ---------- */
+.md-content .buton-kap { margin: 18px 0 22px; }
+.md-content a.buton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 8px;
+  background: var(--primary);
+  color: var(--theme);
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: none;
+  transition: opacity .15s ease, transform .2s ease;
+}
+.md-content a.buton svg { transition: transform .2s cubic-bezier(.2, .7, .2, 1); }
+.md-content a.buton:hover { opacity: .88; }
+.md-content a.buton:hover svg { transform: translateX(3px); }
+.md-content a.buton:active { transform: translateY(1px); }
+.md-content a.buton:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) {
+  .md-content a.buton, .md-content a.buton svg { transition: none; }
+}
