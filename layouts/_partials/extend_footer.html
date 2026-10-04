@@ -1,6 +1,7 @@
 {{- /* Çerez onayı: bant + tercih modalı. GA yalnızca analitik onayıyla yüklenir (bkz. google_analytics.html) */ -}}
 {{- /* footer partialCached ama anahtarında .Kind var: ana sayfa kendi kopyasını alır */}}
 {{- if .IsHome }}{{ partial "kaydirma_cizgileri.html" . }}{{ end }}
+{{- if not .IsPage }}{{ partial "sonsuz_kaydirma.html" . }}{{ end }}
 
 {{- if and site.Config.Services.GoogleAnalytics.ID hugo.IsProduction }}
 <section id="cerez-bandi" class="cerez-bandi" role="region" aria-label="Çerez onayı" hidden>

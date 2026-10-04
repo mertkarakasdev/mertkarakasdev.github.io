@@ -3,25 +3,32 @@
 <script>
 (function () {
   var nav = document.currentScript.previousElementSibling;
-  var kartlar = [].slice.call(document.querySelectorAll('main .post-entry'));
-  if (kartlar.length < 2) return;
+  var kartlar = [], cizgiler = [];
 
-  var cizgiler = kartlar.map(function (kart, i) {
-    var baslik = (kart.querySelector('.entry-header h2') || {}).textContent || ('Yazı ' + (i + 1));
-    baslik = baslik.trim();
-    var b = document.createElement('button');
-    b.type = 'button';
-    b.className = 'cizgi';
-    b.setAttribute('aria-label', baslik);
-    b.innerHTML = '<span class="cizgi-etiket"></span>';
-    b.firstChild.textContent = baslik;
-    b.addEventListener('click', function () {
-      kart.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'center' });
+  // Kartlardan çizgileri kur; sonsuz kaydırma kart ekleyince yeniden çağrılır
+  function kur() {
+    kartlar = [].slice.call(document.querySelectorAll('main .post-entry'));
+    nav.textContent = '';
+    cizgiler = kartlar.map(function (kart, i) {
+      var baslik = ((kart.querySelector('.entry-header h2') || {}).textContent || ('Yazı ' + (i + 1))).trim();
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'cizgi';
+      b.setAttribute('aria-label', baslik);
+      var etiket = document.createElement('span');
+      etiket.className = 'cizgi-etiket';
+      etiket.textContent = baslik;
+      b.appendChild(etiket);
+      b.addEventListener('click', function () {
+        kart.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'center' });
+      });
+      nav.appendChild(b);
+      return b;
     });
-    nav.appendChild(b);
-    return b;
-  });
-  nav.hidden = false;
+    nav.hidden = kartlar.length < 2;
+    etkin = -1;
+    guncelle();
+  }
 
   var etkin = -1;
   function guncelle() {
@@ -38,7 +45,7 @@
         if (fark < enAz) { enAz = fark; enIyi = i; }
       });
     }
-    if (enIyi === etkin) return;
+    if (!kartlar.length || enIyi === etkin) return;
     if (etkin !== -1) {
       cizgiler[etkin].classList.remove('etkin');
       cizgiler[etkin].removeAttribute('aria-current');
@@ -55,6 +62,7 @@
     requestAnimationFrame(function () { bekliyor = false; guncelle(); });
   }, { passive: true });
   addEventListener('resize', guncelle);
-  guncelle();
+  document.addEventListener('yazilar-eklendi', kur);
+  kur();
 })();
 </script>

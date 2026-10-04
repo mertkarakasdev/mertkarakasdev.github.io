@@ -23,7 +23,7 @@ taxonomies:
   tag: tags
 
 pagination:
-  pagerSize: 10
+  pagerSize: 5   # sonrası kaydırdıkça yüklenir (sonsuz_kaydirma.html)
 
 minify:
   disableXML: true

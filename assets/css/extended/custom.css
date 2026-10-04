@@ -831,9 +831,10 @@ body {
   .yazi-oku:hover, .yazi-oku:focus-visible { transform: none; }
 }
 
-/* Liste sayfalarının altındaki sayfalama (page-footer) gizli.
-   Not: 10'dan eski yazılara ana sayfadan değil Arşiv, etiketler, arama ve oklarla ulaşılır. */
-.page-footer { display: none; }
+/* Sayfalama (page-footer) sonsuz kaydırma betiğiyle gizlenir; JS yoksa görünür kalır */
+.page-footer[hidden] { display: none; }
+.sonsuz-isaret { min-height: 1px; padding: 12px 0 4px; text-align: center; font-size: 13px; color: var(--secondary); }
+.sonsuz-isaret:empty { padding: 0; }
 
 /* ---------- Ana sayfa: sağdaki kaydırma çizgileri ---------- */
 .cizgiler {

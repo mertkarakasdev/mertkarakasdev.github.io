@@ -1,0 +1,54 @@
+{{- /* Liste sayfalarında sonsuz kaydırma: sona yaklaşınca sonraki sayfanın kartları eklenir.
+       Sayfalama (page-footer) JS ile gizlenir; JS yoksa görünür kalır. */ -}}
+<script>
+(function () {
+  var sayfaAlti = document.querySelector('.page-footer');
+  var sonraki = sayfaAlti && sayfaAlti.querySelector('.pagination .next');
+  if (!sonraki) return;
+  sayfaAlti.hidden = true;
+
+  var main = document.querySelector('main.main');
+  var isaret = document.createElement('div');
+  isaret.className = 'sonsuz-isaret';
+  isaret.setAttribute('role', 'status');
+  isaret.setAttribute('aria-live', 'polite');
+  sayfaAlti.parentNode.insertBefore(isaret, sayfaAlti);
+
+  var adres = sonraki.href;
+  var yukleniyor = false;
+
+  function yukle() {
+    if (yukleniyor || !adres) return;
+    yukleniyor = true;
+    isaret.textContent = 'Yükleniyor…';
+    fetch(adres)
+      .then(function (y) { if (!y.ok) throw new Error(y.status); return y.text(); })
+      .then(function (html) {
+        var belge = new DOMParser().parseFromString(html, 'text/html');
+        [].forEach.call(belge.querySelectorAll('main .post-entry'), function (kart, i) {
+          var yeni = document.importNode(kart, true);
+          yeni.style.animationDelay = (i * 60) + 'ms';
+          main.insertBefore(yeni, isaret);
+        });
+        var s = belge.querySelector('.pagination .next');
+        adres = s ? s.href : null;
+        isaret.textContent = '';
+        document.dispatchEvent(new CustomEvent('yazilar-eklendi'));
+        if (!adres) { olaylar.forEach(function (o) { removeEventListener(o, kontrol); }); isaret.remove(); }
+      })
+      .catch(function () { isaret.textContent = 'Yazılar yüklenemedi. Tekrar denemek için kaydır.'; })
+      .then(function () { yukleniyor = false; });
+  }
+
+  // Yalnızca kullanıcı kaydırırken ve listenin sonuna yaklaşmışken yükle.
+  // Ekranı doldurmayan kısa listede sayfa kaymaz ama tekerlek/dokunma olayı yine gelir.
+  var KLAVYE = { ArrowDown: 1, PageDown: 1, End: 1, ' ': 1 };
+  function kontrol(e) {
+    if (e.type === 'keydown' && !KLAVYE[e.key]) return;
+    if (e.type === 'wheel' && e.deltaY <= 0) return;
+    if (isaret.getBoundingClientRect().top < innerHeight + 150) yukle();
+  }
+  var olaylar = ['scroll', 'wheel', 'touchmove', 'keydown'];
+  olaylar.forEach(function (o) { addEventListener(o, kontrol, { passive: true }); });
+})();
+</script>
