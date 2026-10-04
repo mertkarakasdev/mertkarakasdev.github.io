@@ -1,7 +1,7 @@
 ---
 title: "Hakkımda"
 url: "/hakkimda/"
-summary: "Kim olduğum ve neler yaptığım."
+summary: "Full stack web geliştirici ve grafik tasarımcı."
 ShowReadingTime: false
 disableShare: true
 ShowBreadCrumbs: false
@@ -10,20 +10,35 @@ hidemeta: true
 ShowToc: false
 ---
 
-Merhaba, ben **Tuğrul Mert Karakaş**. Yazılım geliştiriyorum.
+Merhaba, ben **Tuğrul Mert Karakaş**. 2020'den beri freelance çalışan bir
+full stack web geliştirici ve grafik tasarımcıyım.
 
-Bu blogda öğrendiklerimi, üzerinde çalıştığım projeleri ve not almaya
-değer bulduğum şeyleri yazıyorum.
+Yerel işletmeler ve yurt dışı müşteriler için web siteleri, web uygulamaları
+ve marka kimliği tasarımları geliştiriyorum. Hem geliştirici hem tasarımcı
+olduğum için projeleri fikir aşamasından yayına kadar tek başıma yürütebiliyorum.
 
 ## Neler yapıyorum
 
-- Buraya üzerinde çalıştığın alanları yaz
-- Kullandığın teknolojiler, ilgi alanların
-- Öne çıkarmak istediğin projeler
+- Modern, responsive web siteleri ve web uygulamaları
+- Backend servisler ve RESTful API geliştirme
+- Logo ve kurumsal grafik tasarım
+- Mobil uygulama geliştirme
+- Vercel ile CI/CD ve deployment yönetimi
+
+## Kullandıklarım
+
+| | |
+|---|---|
+| **Frontend** | React · Next.js · Vue.js · JavaScript · HTML · CSS |
+| **Backend** | Node.js · Python · REST API |
+| **DevOps** | Vercel · Docker · Git · GitHub |
+| **Tasarım** | Figma · Photoshop · Illustrator |
 
 ## İletişim
 
-Bana ulaşmak istersen:
+Tam zamanlı pozisyonlara açığım — yazmaktan çekinme.
 
 - E-posta: [karakasdev@gmail.com](mailto:karakasdev@gmail.com)
 - GitHub: [@mertkarakasdev](https://github.com/mertkarakasdev)
+- LinkedIn: [mertkarakasdev](https://www.linkedin.com/in/mertkarakasdev/)
+- X: [@tmertkarakas](https://x.com/tmertkarakas)

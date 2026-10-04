@@ -55,7 +55,7 @@ menu:
 params:
   env: production          # Google Analytics / SEO etiketleri için
   author: "Tuğrul Mert Karakaş"
-  description: "Yazılım üzerine notlar, denemeler ve projeler."
+  description: "Tuğrul Mert Karakaş — full stack web geliştirici ve grafik tasarımcı. Yazılım ve tasarım üzerine notlar."
   keywords: ["blog", "yazılım", "notlar"]
   DateFormat: "2 January 2006"
 
@@ -80,8 +80,8 @@ params:
   homeInfoParams:
     Title: "Merhaba 👋"
     Content: >
-      Yazılım geliştiriyorum. Burada öğrendiklerimi, üzerinde çalıştığım
-      projeleri ve aklımda kalan notları yazıyorum.
+      Full stack web geliştirici ve grafik tasarımcıyım. Burada öğrendiklerimi,
+      üzerinde çalıştığım projeleri ve not almaya değer bulduğum şeyleri yazıyorum.
 
   socialIcons:
     - name: github
