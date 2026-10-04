@@ -909,3 +909,8 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .cizgi::before, .cizgi-etiket { transition: none; }
 }
+
+/* Sayfanın kaydırma çubuğu gizli; kaydırma (tekerlek, touchpad, dokunma, klavye) çalışmaya devam eder.
+   Yalnızca sayfa geneli: kod blokları gibi iç kaydırma alanları etkilenmez. */
+html { scrollbar-width: none; }               /* Chrome 121+, Edge, Firefox */
+html::-webkit-scrollbar { display: none; }    /* Safari, eski Chrome */
