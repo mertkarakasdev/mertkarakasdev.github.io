@@ -895,9 +895,6 @@ body {
 .cizgi:hover .cizgi-etiket,
 .cizgi:focus-visible .cizgi-etiket { opacity: 1; translate: 0 -50%; }
 
-/* iOS haptik yöntemi için görünmez switch */
-.haptik-ios { position: fixed; width: 1px; height: 1px; overflow: hidden; opacity: 0; pointer-events: none; clip-path: inset(50%); }
-
 /* Mobilde kart kenarıyla ekran kenarı arasındaki 14px boşluğa sığsın */
 @media (max-width: 768px) {
   .cizgiler { right: 1px; }

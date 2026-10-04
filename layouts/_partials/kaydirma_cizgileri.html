@@ -1,12 +1,8 @@
-{{- /* Ana sayfa: sağda her yazı kartı için bir çizgi. Ekranın ortasındaki kartın çizgisi büyür.
-       Kart değişince Android'de kısa titreşim, iOS 18+'da switch yöntemiyle hafif dokunsal geri bildirim.
-       (Mac touchpad haptiğine web'den erişilemiyor.) */ -}}
+{{- /* Ana sayfa: sağda her yazı kartı için bir çizgi. Ekranın ortasındaki kartın çizgisi büyür. */ -}}
 <nav class="cizgiler" aria-label="Yazılar" hidden></nav>
-<label class="haptik-ios" aria-hidden="true"><input type="checkbox" switch tabindex="-1"></label>
 <script>
 (function () {
-  var nav = document.currentScript.previousElementSibling.previousElementSibling;
-  var iosAnahtar = nav.nextElementSibling;
+  var nav = document.currentScript.previousElementSibling;
   var kartlar = [].slice.call(document.querySelectorAll('main .post-entry'));
   if (kartlar.length < 2) return;
 
@@ -27,12 +23,6 @@
   });
   nav.hidden = false;
 
-  function titret() {
-    if (navigator.vibrate) { try { navigator.vibrate(8); } catch (e) {} return; }
-    // iOS 18+: switch kontrolünü değiştirmek sistem haptiğini tetikler (resmi API değil)
-    try { iosAnahtar.click(); } catch (e) {}
-  }
-
   var etkin = -1;
   function guncelle() {
     var orta = innerHeight / 2, enIyi = 0, enAz = Infinity;
@@ -52,7 +42,6 @@
     if (etkin !== -1) {
       cizgiler[etkin].classList.remove('etkin');
       cizgiler[etkin].removeAttribute('aria-current');
-      titret();
     }
     etkin = enIyi;
     cizgiler[etkin].classList.add('etkin');
