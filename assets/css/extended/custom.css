@@ -157,3 +157,11 @@ main.main > :nth-child(n+8) { animation-delay: .49s; }  /* uzun listelerde bekle
 @media (prefers-reduced-motion: reduce) {
   .cerez-bandi { animation: none; }
 }
+
+/* Banttaki "Ayrıntılar" bağlantısı */
+.cerez-metin a {
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: .2rem;
+  white-space: nowrap;
+}
