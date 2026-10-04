@@ -1,0 +1,21 @@
+/* giscus özel teması: light üzerine, tepki satırı "Yorumlar" başlığıyla aynı satırda sağda */
+@import url("https://giscus.app/themes/light.css");
+
+.gsc-main { gap: 1.25rem; }
+
+.gsc-reactions {
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  gap: .5rem;
+  min-height: 40px;
+}
+.gsc-reactions-count {
+  font-size: .875rem;
+  font-weight: 500;
+  color: var(--color-fg-muted);
+}
+.gsc-reactions > * {
+  margin: 0 !important;
+  justify-content: flex-end !important;
+}
