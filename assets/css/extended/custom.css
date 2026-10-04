@@ -695,7 +695,7 @@ body {
 
 /* ---------- Yorumlar (giscus) ---------- */
 .yorumlar { margin-top: 40px; }
-.yorumlar h2 { margin: 0 0 14px; font-size: 20px; color: var(--primary); }
+.yorumlar h2 { margin: 0 0 14px; font-size: 20px; line-height: 40px; color: var(--primary); }
 .yorumlar-kapali {
   display: grid;
   gap: 14px;
@@ -724,3 +724,6 @@ body {
 .yorumlar.acik .yorumlar-kapali { display: none; }
 .yorumlar-alan { min-height: 0; }
 .yorumlar.acik .yorumlar-alan { min-height: 200px; animation: giris .4s cubic-bezier(.2, .7, .2, 1); }
+/* giscus'un ilk satırı (tepkiler, 40px) başlık satırına otursun: başlık 40px + 14px boşluk */
+.yorumlar.acik .yorumlar-alan { margin-top: -54px; }
+.yorumlar.acik h2 { position: relative; z-index: 1; pointer-events: none; display: inline-block; }

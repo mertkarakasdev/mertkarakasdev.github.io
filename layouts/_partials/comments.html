@@ -3,7 +3,9 @@
 {{- with site.Params.giscus }}
 <section class="yorumlar" id="yorumlar" aria-labelledby="yorumlar-baslik"
          data-repo="{{ .repo }}" data-repo-id="{{ .repoId }}"
-         data-category="{{ .category }}" data-category-id="{{ .categoryId }}">
+         data-category="{{ .category }}" data-category-id="{{ .categoryId }}"
+         data-tema-acik="{{ .temaKok }}acik.css?v={{ readFile "static/giscus/acik.css" | md5 | truncate 8 "" }}"
+         data-tema-koyu="{{ .temaKok }}koyu.css?v={{ readFile "static/giscus/koyu.css" | md5 | truncate 8 "" }}">
   <h2 id="yorumlar-baslik">Yorumlar</h2>
   <div class="yorumlar-kapali">
     <p>Yorumlar ve tepkiler GitHub Discussions üzerinden çalışır. Yüklendiğinde giscus.app ve GitHub'a bağlanılır; yorum yapmak için GitHub hesabı gerekir.</p>
@@ -18,7 +20,8 @@
   var ANAHTAR = 'yorumlar-acik';
 
   function tema() {
-    return document.documentElement.dataset.theme === 'dark' ? 'transparent_dark' : 'light';
+    // Özel tema: tepki satırını "Yorumlar" başlığının satırına alır (static/giscus/)
+    return document.documentElement.dataset.theme === 'dark' ? kok.dataset.temaKoyu : kok.dataset.temaAcik;
   }
 
   function yukle() {

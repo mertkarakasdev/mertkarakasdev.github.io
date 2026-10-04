@@ -98,6 +98,9 @@ params:
     repoId: "R_kgDOU6j8GQ"
     category: "Announcements"
     categoryId: "DIC_kwDOU6j8Gc4DHCRp"
+    # Özel tema dosyaları (static/giscus/). Mutlaka https olmalı: giscus iframe'i
+    # http adresinden stil yükleyemez, bu yüzden yerelde de canlı dosyalar kullanılır.
+    temaKok: "https://mertkarakasdev.github.io/giscus/"
 
   # Footer'da logonun altındaki kısa tanım
   footer:
