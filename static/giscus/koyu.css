@@ -19,7 +19,9 @@
   font-weight: 500;
   color: var(--color-fg-muted);
 }
+/* Düğme kutusu (flex-auto) kalan genişliği kaplamasın; sayı ve düğmeler sağda yan yana */
 .gsc-reactions > * {
+  flex: 0 0 auto !important;
   margin: 0 !important;
   justify-content: flex-end !important;
 }
