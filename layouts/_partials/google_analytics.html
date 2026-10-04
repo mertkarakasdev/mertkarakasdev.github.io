@@ -1,0 +1,33 @@
+{{- /*
+  Hugo'nun yerleşik GA partial'ının yerine geçer.
+  Consent Mode v2, temel mod: gtag.js ziyaretçi onay verene kadar hiç yüklenmez,
+  yani onaysız ziyaretçiden Google'a hiçbir istek gitmez.
+  Onay bandı: layouts/_partials/extend_footer.html
+*/ -}}
+{{- with site.Config.Services.GoogleAnalytics.ID }}
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: 'denied'
+  });
+
+  window.gaYukle = function () {
+    if (window.__gaYuklendi) return;
+    window.__gaYuklendi = true;
+    gtag('consent', 'update', { analytics_storage: 'granted' });
+    gtag('js', new Date());
+    gtag('config', {{ . }});
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + {{ . }};
+    document.head.appendChild(s);
+  };
+
+  // Daha önce onay verdiyse beklemeden yükle
+  try { if (localStorage.getItem('cerez-onayi') === 'kabul') window.gaYukle(); } catch (e) {}
+</script>
+{{- end }}

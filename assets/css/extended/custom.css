@@ -86,3 +86,74 @@ main.main > :nth-child(n+8) { animation-delay: .49s; }  /* uzun listelerde bekle
   main.main > :not(.post-single),
   .post-single > * { animation: none; }
 }
+
+/* ---------- Çerez onay bandı ---------- */
+.cerez-bandi {
+  position: fixed;
+  inset-inline: 16px;
+  bottom: 16px;
+  z-index: 1000;
+  max-width: 600px;
+  margin-inline: auto;
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--entry);
+  color: var(--content);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .18);
+  font-size: 14px;
+  line-height: 1.55;
+  animation: giris .45s cubic-bezier(.2, .7, .2, 1) backwards;
+}
+/* display:flex, hidden özniteliğinin display:none'ını ezmesin */
+.cerez-bandi[hidden] { display: none; }
+
+.cerez-metin { margin: 0; flex: 1; }
+.cerez-metin strong { color: var(--primary); }
+
+.cerez-dugmeler { display: flex; gap: 8px; flex-shrink: 0; }
+
+.cerez-btn {
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  min-width: 88px;
+  padding: 7px 14px;
+  border-radius: 6px;
+  /* --border koyu temada kartla neredeyse aynı: Reddet düz yazı gibi görünüyordu.
+     Reddet, Kabul et kadar belirgin bir düğme olmalı. */
+  border: 1px solid var(--secondary);
+  background: transparent;
+  color: var(--primary);
+  cursor: pointer;
+  transition: background-color .15s ease, opacity .15s ease;
+}
+.cerez-btn:hover { background: var(--border); }
+.cerez-kabul { background: var(--primary); border-color: var(--primary); color: var(--theme); }
+.cerez-kabul:hover { background: var(--primary); opacity: .85; }
+.cerez-btn:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+
+/* Footer'daki "Çerez tercihleri" — footer linkleriyle aynı görünüm */
+.cerez-tercih {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: .25rem;
+}
+.cerez-tercih:hover { color: var(--primary); }
+
+@media (max-width: 520px) {
+  .cerez-bandi { flex-direction: column; align-items: stretch; gap: 12px; }
+  .cerez-dugmeler .cerez-btn { flex: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cerez-bandi { animation: none; }
+}

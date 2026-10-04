@@ -7,6 +7,10 @@
         <span>&copy; {{ now.Year }} <a href="{{ "" | absLangURL }}">{{ site.Title }}</a></span>
         {{- end }}
     {{- end }}
+    {{- /* <a href="#"> değil button: tema "#" linklerini yakalayıp scrollIntoView çağırıyor */}}
+    {{- if site.Config.Services.GoogleAnalytics.ID }}
+        <span> · <button type="button" id="cerez-tercihleri" class="cerez-tercih">Çerez tercihleri</button></span>
+    {{- end }}
 </footer>
 {{- end }}
 

@@ -1,0 +1,56 @@
+{{- /* Çerez onay bandı — GA yalnızca "Kabul et" sonrası yüklenir (bkz. google_analytics.html) */ -}}
+{{- if site.Config.Services.GoogleAnalytics.ID }}
+<section id="cerez-bandi" class="cerez-bandi" role="region" aria-label="Çerez onayı" hidden>
+  <p class="cerez-metin">
+    <strong>Çerezler.</strong> Ziyaretçi istatistiklerini görmek için Google Analytics kullanıyorum.
+    Kabul edersen tarayıcına analitik çerezi kaydedilir; reddedersen hiçbir izleme yapılmaz.
+  </p>
+  <div class="cerez-dugmeler">
+    <button type="button" class="cerez-btn" data-secim="red">Reddet</button>
+    <button type="button" class="cerez-btn cerez-kabul" data-secim="kabul">Kabul et</button>
+  </div>
+</section>
+<script>
+(function () {
+  var ANAHTAR = 'cerez-onayi';
+  var bant = document.getElementById('cerez-bandi');
+  if (!bant) return;
+
+  function oku() { try { return localStorage.getItem(ANAHTAR); } catch (e) { return null; } }
+  function yaz(v) { try { localStorage.setItem(ANAHTAR, v); } catch (e) {} }
+
+  // Önceden kabul edip sonra reddederse GA çerezlerini de temizle
+  function gaCerezleriniSil() {
+    document.cookie.split(';').forEach(function (c) {
+      var ad = c.split('=')[0].trim();
+      if (!/^_ga/.test(ad)) return;
+      ['', '; domain=' + location.hostname, '; domain=.' + location.hostname].forEach(function (d) {
+        document.cookie = ad + '=; Max-Age=0; path=/' + d;
+      });
+    });
+  }
+
+  bant.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-secim]');
+    if (!b) return;
+    var secim = b.getAttribute('data-secim');
+    yaz(secim);
+    if (secim === 'kabul') {
+      if (window.gaYukle) window.gaYukle();
+    } else {
+      if (window.gtag) gtag('consent', 'update', { analytics_storage: 'denied' });
+      gaCerezleriniSil();
+    }
+    bant.hidden = true;
+  });
+
+  var tercih = document.getElementById('cerez-tercihleri');
+  if (tercih) tercih.addEventListener('click', function () {
+    bant.hidden = false;
+    bant.querySelector('[data-secim]').focus();
+  });
+
+  if (!oku()) bant.hidden = false;
+})();
+</script>
+{{- end }}
