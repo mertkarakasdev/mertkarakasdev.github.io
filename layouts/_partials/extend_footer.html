@@ -1,5 +1,5 @@
 {{- /* Çerez onayı: bant + tercih modalı. GA yalnızca analitik onayıyla yüklenir (bkz. google_analytics.html) */ -}}
-{{- if site.Config.Services.GoogleAnalytics.ID }}
+{{- if and site.Config.Services.GoogleAnalytics.ID hugo.IsProduction }}
 <section id="cerez-bandi" class="cerez-bandi" role="region" aria-label="Çerez onayı" hidden>
   <p class="cerez-metin">
     Bu sitede, onayınız halinde analitik çerezler kullanılmaktadır.

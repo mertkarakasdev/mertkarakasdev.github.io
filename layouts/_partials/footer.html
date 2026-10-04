@@ -31,7 +31,7 @@
     <span class="site-footer-yasal">
       <a href="{{ "gizlilik/" | relLangURL }}">Gizlilik</a>
       {{- /* <a href="#"> değil button: tema "#" linklerini yakalayıp scrollIntoView çağırıyor */}}
-      {{- if site.Config.Services.GoogleAnalytics.ID }}
+      {{- if and site.Config.Services.GoogleAnalytics.ID hugo.IsProduction }}
       <span aria-hidden="true">·</span>
       <button type="button" id="cerez-tercihleri" class="cerez-tercih">Çerez tercihleri</button>
       {{- end }}
