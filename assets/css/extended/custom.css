@@ -165,12 +165,12 @@ main.main > :nth-child(n+8) { animation-delay: .49s; }  /* uzun listelerde bekle
 
 
 /* ---------- Site footer ----------
-   Temanın tek satırlık .footer'ı yerine. Genişlik ve boşluklar içerik
-   alanıyla (--main-width, --gap) hizalı, renkler tema değişkenlerinden. */
+   Temanın tek satırlık .footer'ı yerine. Genişlik ve boşluklar navbar'la
+   (.header-nav: --nav-width, --gap) aynı, renkler tema değişkenlerinden. */
 
 .site-footer {
   width: 100%;                        /* esnek sütunda içeriğe büzülmesin */
-  max-width: calc(var(--main-width) + var(--gap) * 2);
+  max-width: calc(var(--nav-width) + var(--gap) * 2);
   margin: 0 auto;
   padding: 0 var(--gap);
   color: var(--secondary);
