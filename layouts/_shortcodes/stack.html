@@ -1,0 +1,23 @@
+{{- /* Kullandıklarım: sadece logolar; isim hover ve klavye odağında görünür.
+       Veri: data/stack.yaml — ikonlar assets/ikonlar/ altında, siteye gömülü (dış istek yok). */ -}}
+<div class="stack">
+  {{- range site.Data.stack }}
+  <div class="stack-grup">
+    <span class="stack-baslik">{{ .grup }}</span>
+    <ul class="stack-liste">
+      {{- range .ogeler }}
+      {{- $oge := . }}
+      {{- with resources.Get (printf "ikonlar/%s.svg" $oge.ikon) }}
+      <li class="stack-oge" tabindex="0" data-ad="{{ $oge.ad }}"
+          {{- with $oge.renk }} style="--marka: {{ . | safeCSS }}"{{ end }}>
+        {{ .Content | replaceRE "<svg " "<svg aria-hidden=\"true\" focusable=\"false\" " | safeHTML }}
+        <span class="gorsel-gizli">{{ $oge.ad }}</span>
+      </li>
+      {{- else }}
+      {{- warnf "stack: ikon bulunamadi: %s" $oge.ikon }}
+      {{- end }}
+      {{- end }}
+    </ul>
+  </div>
+  {{- end }}
+</div>

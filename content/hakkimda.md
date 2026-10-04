@@ -28,12 +28,7 @@ olduğum için projeleri fikir aşamasından yayına kadar tek başıma yürüte
 
 ## Kullandıklarım
 
-| | |
-|---|---|
-| **Frontend** | React · Next.js · Vue.js · JavaScript · HTML · CSS |
-| **Backend** | Node.js · Python · REST API |
-| **DevOps** | Vercel · Docker · Git · GitHub |
-| **Tasarım** | Figma · Photoshop · Illustrator |
+{{< stack >}}
 
 ## İletişim
 

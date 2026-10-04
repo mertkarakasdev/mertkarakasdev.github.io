@@ -1,0 +1,25 @@
+# Hakkımda > Kullandıklarım. ikon: assets/ikonlar/<ikon>.svg (Simple Icons, CC0)
+# renk: hover'daki marka rengi; boşsa (siyah markalar) temanın ana rengi kullanılır
+- grup: Frontend
+  ogeler:
+    - { ad: React,      ikon: react,      renk: "#61DAFB" }
+    - { ad: Next.js,    ikon: nextdotjs,  renk: "" }
+    - { ad: Vue.js,     ikon: vuedotjs,   renk: "#4FC08D" }
+    - { ad: JavaScript, ikon: javascript, renk: "#F7DF1E" }
+    - { ad: HTML,       ikon: html5,      renk: "#E34F26" }
+    - { ad: CSS,        ikon: css,        renk: "#663399" }
+- grup: Backend
+  ogeler:
+    - { ad: Node.js, ikon: nodedotjs, renk: "#5FA04E" }
+    - { ad: Python,  ikon: python,    renk: "#3776AB" }
+- grup: DevOps
+  ogeler:
+    - { ad: Vercel, ikon: vercel, renk: "" }
+    - { ad: Docker, ikon: docker, renk: "#2496ED" }
+    - { ad: Git,    ikon: git,    renk: "#F05032" }
+    - { ad: GitHub, ikon: github, renk: "" }
+- grup: Tasarım
+  ogeler:
+    - { ad: Figma,       ikon: figma,            renk: "#F24E1E" }
+    - { ad: Photoshop,   ikon: adobephotoshop,   renk: "#31A8FF" }
+    - { ad: Illustrator, ikon: adobeillustrator, renk: "#FF9A00" }
