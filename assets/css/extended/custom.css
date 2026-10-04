@@ -869,7 +869,7 @@ body {
   transition: width .3s cubic-bezier(.2, .7, .2, 1), height .3s ease, opacity .25s ease, background-color .25s ease;
 }
 .cizgi:hover::before { opacity: .8; width: 18px; }
-.cizgi.etkin::before { width: 30px; height: 3px; opacity: 1; background: var(--primary); }
+.cizgi.etkin::before { width: 18px; height: 3px; opacity: 1; background: var(--primary); }
 .cizgi:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; border-radius: 4px; }
 
 /* Üzerine gelince yazının başlığı soldan belirir */
