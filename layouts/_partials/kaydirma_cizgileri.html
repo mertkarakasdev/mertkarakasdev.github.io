@@ -1,16 +1,25 @@
-{{- /* Ana sayfa: sağda her yazı kartı için bir çizgi. Ekranın ortasındaki kartın çizgisi büyür. */ -}}
-<nav class="cizgiler" aria-label="Yazılar" hidden></nav>
+{{- /* Ana sayfa: sağda kaydırma çizgileri. Kartlar sayfa boyutu kadar gruplara ayrılır (pagerSize);
+       yalnızca o an bakılan grubun çizgileri görünür ve ortadaki kartın çizgisi büyür.
+       Sonraki gruba geçince çizgiler o grubun başlıklarıyla yeniden kurulur, geri kaydırınca eskisine döner. */ -}}
+<nav class="cizgiler" aria-label="Yazılar" data-grup="{{ .Paginator.PagerSize | default 5 }}" hidden></nav>
 <script>
 (function () {
   var nav = document.currentScript.previousElementSibling;
+  var GRUP = parseInt(nav.dataset.grup, 10) || 5;
   var kartlar = [], cizgiler = [];
+  var etkinKart = -1, etkinGrup = -1;
+  var azHareket = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Kartlardan çizgileri kur; sonsuz kaydırma kart ekleyince yeniden çağrılır
-  function kur() {
+  function kartlariOku() {
     kartlar = [].slice.call(document.querySelectorAll('main .post-entry'));
+  }
+
+  // Grubun kartları için çizgileri kur (son grup 5'ten az olabilir)
+  function grubuKur(g) {
+    etkinGrup = g;
     nav.textContent = '';
-    cizgiler = kartlar.map(function (kart, i) {
-      var baslik = ((kart.querySelector('.entry-header h2') || {}).textContent || ('Yazı ' + (i + 1))).trim();
+    cizgiler = kartlar.slice(g * GRUP, g * GRUP + GRUP).map(function (kart, i) {
+      var baslik = ((kart.querySelector('.entry-header h2') || {}).textContent || ('Yazı ' + (g * GRUP + i + 1))).trim();
       var b = document.createElement('button');
       b.type = 'button';
       b.className = 'cizgi';
@@ -20,49 +29,53 @@
       etiket.textContent = baslik;
       b.appendChild(etiket);
       b.addEventListener('click', function () {
-        kart.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'center' });
+        kart.scrollIntoView({ behavior: azHareket ? 'auto' : 'smooth', block: 'center' });
       });
       nav.appendChild(b);
       return b;
     });
-    nav.hidden = kartlar.length < 2;
-    etkin = -1;
-    guncelle();
+    // Grup değişiminde çizgiler hafifçe yeniden belirsin
+    nav.classList.remove('yeni-grup');
+    void nav.offsetWidth;
+    nav.classList.add('yeni-grup');
   }
 
-  var etkin = -1;
-  function guncelle() {
+  function ortadakiKart() {
+    if (scrollY <= 2) return 0;
+    if (innerHeight + scrollY >= document.documentElement.scrollHeight - 2) return kartlar.length - 1;
     var orta = innerHeight / 2, enIyi = 0, enAz = Infinity;
-    // Sayfanın en üstündeysek ilk, en altındaysak son kart
-    if (scrollY <= 2) {
-      enIyi = 0;
-    } else if (innerHeight + scrollY >= document.documentElement.scrollHeight - 2) {
-      enIyi = kartlar.length - 1;
-    } else {
-      kartlar.forEach(function (k, i) {
-        var r = k.getBoundingClientRect();
-        var fark = Math.abs((r.top + r.bottom) / 2 - orta);
-        if (fark < enAz) { enAz = fark; enIyi = i; }
-      });
-    }
-    if (!kartlar.length || enIyi === etkin) return;
-    if (etkin !== -1) {
-      cizgiler[etkin].classList.remove('etkin');
-      cizgiler[etkin].removeAttribute('aria-current');
-    }
-    etkin = enIyi;
-    cizgiler[etkin].classList.add('etkin');
-    cizgiler[etkin].setAttribute('aria-current', 'true');
+    kartlar.forEach(function (k, i) {
+      var r = k.getBoundingClientRect();
+      var fark = Math.abs((r.top + r.bottom) / 2 - orta);
+      if (fark < enAz) { enAz = fark; enIyi = i; }
+    });
+    return enIyi;
+  }
+
+  function guncelle(zorla) {
+    if (kartlar.length < 2) { nav.hidden = true; return; }
+    nav.hidden = false;
+    var i = ortadakiKart();
+    var g = Math.floor(i / GRUP);
+    if (g !== etkinGrup || zorla) { grubuKur(g); etkinKart = -1; }
+    if (i === etkinKart) return;
+    cizgiler.forEach(function (c) { c.classList.remove('etkin'); c.removeAttribute('aria-current'); });
+    var c = cizgiler[i - g * GRUP];
+    if (c) { c.classList.add('etkin'); c.setAttribute('aria-current', 'true'); }
+    etkinKart = i;
   }
 
   var bekliyor = false;
   addEventListener('scroll', function () {
     if (bekliyor) return;
     bekliyor = true;
-    requestAnimationFrame(function () { bekliyor = false; guncelle(); });
+    requestAnimationFrame(function () { bekliyor = false; guncelle(false); });
   }, { passive: true });
-  addEventListener('resize', guncelle);
-  document.addEventListener('yazilar-eklendi', kur);
-  kur();
+  addEventListener('resize', function () { guncelle(false); });
+  // Sonsuz kaydırma yeni kartlar ekleyince: listeyi yenile, içinde bulunulan grubu yeniden kur
+  document.addEventListener('yazilar-eklendi', function () { kartlariOku(); guncelle(true); });
+
+  kartlariOku();
+  guncelle(true);
 })();
 </script>
