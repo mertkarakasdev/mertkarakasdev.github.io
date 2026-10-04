@@ -555,10 +555,13 @@ body {
 /* ---------- Buton (shortcode) ---------- */
 .md-content .buton-kap { margin: 18px 0 22px; }
 .md-content a.buton {
-  display: inline-flex;
+  display: flex;
+  width: 100%;
+  min-height: 52px;
+  justify-content: center;
   align-items: center;
   gap: 8px;
-  padding: 10px 18px;
+  padding: 14px 20px;
   border-radius: 8px;
   background: var(--primary);
   color: var(--theme);
