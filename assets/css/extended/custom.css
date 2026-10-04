@@ -50,7 +50,7 @@
   background: none;
 }
 
-/* Navbar'daki satır içi logo — currentColor ile temaya uyar */
+/* Navbar'daki satır içi logo: currentColor ile temaya uyar */
 .logo a svg {
   height: 22px;
   width: auto;
@@ -136,7 +136,7 @@ main.main > :nth-child(n+8) { animation-delay: .49s; }  /* uzun listelerde bekle
 .cerez-kabul:hover { background: var(--primary); opacity: .85; }
 .cerez-btn:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
 
-/* Footer'daki "Çerez tercihleri" — düğme ama footer linki gibi görünür */
+/* Footer'daki "Çerez tercihleri": düğme ama footer linki gibi görünür */
 .cerez-tercih {
   font: inherit;
   color: inherit;

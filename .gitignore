@@ -8,3 +8,6 @@ resources/_gen/
 
 # Yerel yazı paneli (yalnızca bu bilgisayarda)
 panel/
+
+# Yerel kullanım notları
+use.md

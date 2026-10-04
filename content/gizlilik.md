@@ -17,7 +17,7 @@ işlendiğini anlatıyor. Kısaca: çerez bandında onay vermezsen bu site seni 
 
 ## Veri sorumlusu
 
-Tuğrul Mert Karakaş — [karakasdev@gmail.com](mailto:karakasdev@gmail.com)
+Tuğrul Mert Karakaş ([karakasdev@gmail.com](mailto:karakasdev@gmail.com))
 
 ## Google Analytics
 
@@ -30,7 +30,7 @@ Onay verirsen Google Analytics şunları toplar:
 - Ziyaret ettiğin sayfalar ve sayfalarda geçirdiğin süre
 - Siteye nereden geldiğin (örneğin bir arama motoru ya da başka bir site)
 - Cihaz türü, işletim sistemi, tarayıcı ve ekran çözünürlüğü
-- Yaklaşık konum (ülke, şehir) — IP adresinden çıkarılır
+- IP adresinden çıkarılan yaklaşık konum (ülke, şehir)
 
 Tarayıcına iki çerez kaydedilir:
 

@@ -6,7 +6,7 @@ locale: "tr"
 defaultContentLanguage: "tr"
 hasCJKLanguage: false
 
-# Google Analytics (GA4) — sadece production derlemesinde yüklenir,
+# Google Analytics (GA4): sadece production derlemesinde yüklenir,
 # yerel 'hugo server' önizlemesi istatistiklere karışmaz
 services:
   googleAnalytics:
@@ -63,14 +63,14 @@ menu:
       weight: 30
 
 params:
-  # Navbar logosu — karakas.io marka işareti, currentColor ile temaya uyar
+  # Navbar logosu: karakas.io marka işareti, currentColor ile temaya uyar
   label:
     text: "Tuğrul Mert Karakaş"
     iconSVG: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 125 125" fill="currentColor" aria-hidden="true"><path d="M44.7 6.92C47.36 4.452 45.613 0 41.983 0H3.993A3.994 3.994 0 0 0 0 3.994v35.26c0 3.487 4.155 5.3 6.71 2.928zM125 3.994A3.994 3.994 0 0 0 121.006 0h-14.658c-.999 0-1.961.374-2.697 1.048L38.478 60.732a3.994 3.994 0 0 0-.05 5.844l60.492 57.329a4 4 0 0 0 2.747 1.095h19.339a3.994 3.994 0 0 0 3.994-3.994zM6.755 82.058C4.215 79.626 0 81.426 0 84.943v36.063A3.994 3.994 0 0 0 3.994 125h37.671c3.6 0 5.362-4.389 2.762-6.878z"/></svg>'
 
   mainSections: ["posts"]  # ana sayfa sadece content/posts/ altındaki yazıları listeler
   author: "Tuğrul Mert Karakaş"
-  description: "Tuğrul Mert Karakaş — full stack web geliştirici ve grafik tasarımcı. Yazılım ve tasarım üzerine notlar."
+  description: "Tuğrul Mert Karakaş, full stack web geliştirici ve grafik tasarımcı. Yazılım ve tasarım üzerine notlar."
   keywords: ["blog", "yazılım", "notlar"]
   DateFormat: "2 January 2006"
 
