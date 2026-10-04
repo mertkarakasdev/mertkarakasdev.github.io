@@ -1,5 +1,5 @@
 ---
-title: "Hakkımda"
+title: "Merhaba 👋"
 url: "/hakkimda/"
 summary: "Full stack web geliştirici ve grafik tasarımcı."
 ShowReadingTime: false
@@ -10,8 +10,9 @@ hidemeta: true
 ShowToc: false
 ---
 
-Merhaba, ben **Tuğrul Mert Karakaş**. 2020'den beri freelance çalışan bir
-full stack web geliştirici ve grafik tasarımcıyım.
+Ben **Tuğrul Mert Karakaş**. 2020'den beri freelance çalışan bir full stack web
+geliştirici ve grafik tasarımcıyım. Burada öğrendiklerimi, üzerinde çalıştığım
+projeleri ve not almaya değer bulduğum şeyleri yazıyorum.
 
 Yerel işletmeler ve yurt dışı müşteriler için web siteleri, web uygulamaları
 ve marka kimliği tasarımları geliştiriyorum. Hem geliştirici hem tasarımcı

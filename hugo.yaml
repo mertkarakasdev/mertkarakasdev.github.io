@@ -89,14 +89,8 @@ params:
   TocOpen: false
   hidemeta: false
   hideSummary: false
+  disableSpecial1stPost: true   # ilk yazı da diğerleri gibi normal kart
   comments: false
-
-  # Ana sayfadaki karşılama bloğu
-  homeInfoParams:
-    Title: "Merhaba 👋"
-    Content: >
-      Full stack web geliştirici ve grafik tasarımcıyım. Burada öğrendiklerimi,
-      üzerinde çalıştığım projeleri ve not almaya değer bulduğum şeyleri yazıyorum.
 
   # Footer'da logonun altındaki kısa tanım
   footer:
