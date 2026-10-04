@@ -1,0 +1,20 @@
+{{- /* Yazının iki yanında önceki/sonraki okları, kronolojik: sol = daha eski yazı, sağ = daha yeni yazı.
+       Hugo'da $yazilar.Next daha YENİ yazıyı verir (tema paginav'ı bu yüzden ters etiketliyor).
+       Olmayan yön hiç çizilmez: ilk yazıda sol, son yazıda sağ ok yok. */ -}}
+{{- $yazilar := where site.RegularPages "Type" "in" site.Params.mainSections }}
+{{- if and .IsPage (in $yazilar .) (gt (len $yazilar) 1) }}
+<nav class="yazi-oklari" aria-label="Yazılar arası geçiş">
+  {{- with $yazilar.Prev . }}
+  <a class="yazi-oku yazi-oku-sol" href="{{ .Permalink }}" aria-label="Önceki yazı: {{ .Title }}">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+    <span class="yazi-oku-baslik"><small>Önceki</small>{{ .Title }}</span>
+  </a>
+  {{- end }}
+  {{- with $yazilar.Next . }}
+  <a class="yazi-oku yazi-oku-sag" href="{{ .Permalink }}" aria-label="Sonraki yazı: {{ .Title }}">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+    <span class="yazi-oku-baslik"><small>Sonraki</small>{{ .Title }}</span>
+  </a>
+  {{- end }}
+</nav>
+{{- end }}
