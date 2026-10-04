@@ -17,4 +17,12 @@
   </a>
   {{- end }}
 </nav>
+<script>
+  // Sonraki oku başlık alanının sağ ucuna taşı (JS yoksa yan tarafta kalır)
+  (function () {
+    var sag = document.currentScript.previousElementSibling.querySelector('.yazi-oku-sag');
+    var baslik = document.querySelector('.post-single .post-header');
+    if (sag && baslik) { baslik.appendChild(sag); baslik.classList.add('oklu'); }
+  })();
+</script>
 {{- end }}

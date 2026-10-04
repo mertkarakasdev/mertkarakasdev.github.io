@@ -744,7 +744,8 @@ body {
 /* ---------- Yazının iki yanında önceki / sonraki okları ----------
    Ekrana değil yazıya bağlı: yazının dikey ortasında, kaydırınca yazıyla birlikte hareket eder.
    Başlık balonu dışa doğru açılır (önceki solda, sonraki sağda). */
-.yazi-oklari { display: none; }
+.yazi-oklari,
+.yazi-oku { display: none; }
 
 @media (min-width: 1000px) {
   .post-single { position: relative; }
@@ -809,6 +810,17 @@ body {
 /* Okun dışında balon için yeterli yer yoksa gösterme */
 @media (min-width: 1000px) and (max-width: 1239px) {
   .yazi-oku-baslik { display: none; }
+}
+
+/* Sonraki oku başlık alanının sağ ucunda (yazi_oklari.html'deki betik taşır) */
+@media (min-width: 1000px) {
+  .post-header.oklu { position: relative; padding-inline-end: 64px; }
+  .post-header .yazi-oku-sag { left: auto; right: 0; top: 50%; }
+  /* İçerik kenarından başlayan boşluk daha geniş: balon 1000px'ten itibaren sığar */
+  .post-header .yazi-oku-sag .yazi-oku-baslik {
+    display: block;
+    max-width: min(200px, calc(50vw - var(--main-width) / 2 - 12px - 16px));
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
