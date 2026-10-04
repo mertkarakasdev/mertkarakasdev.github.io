@@ -1,25 +1,69 @@
-{{- /* Çerez onay bandı — GA yalnızca "Kabul et" sonrası yüklenir (bkz. google_analytics.html) */ -}}
+{{- /* Çerez onayı: bant + tercih modalı. GA yalnızca analitik onayıyla yüklenir (bkz. google_analytics.html) */ -}}
 {{- if site.Config.Services.GoogleAnalytics.ID }}
 <section id="cerez-bandi" class="cerez-bandi" role="region" aria-label="Çerez onayı" hidden>
   <p class="cerez-metin">
     Bu sitede, onayınız halinde analitik çerezler kullanılmaktadır.
-    <a href="{{ "gizlilik/" | relLangURL }}">Gizlilik Politikası</a>
+    <button type="button" class="cerez-baglanti" data-modal-ac>İsteğe bağlı verileri yönet</button>
   </p>
   <div class="cerez-dugmeler">
     <button type="button" class="cerez-btn" data-secim="red">Reddet</button>
     <button type="button" class="cerez-btn cerez-kabul" data-secim="kabul">Kabul et</button>
   </div>
 </section>
+
+<dialog id="cerez-modal" class="cerez-modal" aria-labelledby="cerez-modal-baslik">
+  <form method="dialog" class="cerez-modal-form">
+    <header class="cerez-modal-ust">
+      <h2 id="cerez-modal-baslik">Veri tercihleri</h2>
+      <button type="submit" value="kapat" class="cerez-modal-kapat" aria-label="Kapat">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </header>
+
+    <ul class="cerez-kategoriler">
+      <li class="cerez-kategori">
+        <div class="cerez-kategori-metin">
+          <span class="cerez-kategori-ad" id="kat-zorunlu">Zorunlu</span>
+          <p id="kat-zorunlu-aciklama">Tema ve çerez tercihlerinizi bu cihazda saklar. Hiçbir veri dışarı gönderilmez; sitenin çalışması için gereklidir.</p>
+        </div>
+        <label class="anahtar">
+          <input type="checkbox" role="switch" checked disabled aria-labelledby="kat-zorunlu" aria-describedby="kat-zorunlu-aciklama">
+          <span class="anahtar-iz" aria-hidden="true"></span>
+        </label>
+      </li>
+      <li class="cerez-kategori">
+        <div class="cerez-kategori-metin">
+          <span class="cerez-kategori-ad" id="kat-analitik">Analitik</span>
+          <p id="kat-analitik-aciklama">Google Analytics ile ziyaret edilen sayfaları ve ziyaret süresini istatistik olarak ölçer. <code>_ga</code> çerezleri 2 yıl saklanır.</p>
+        </div>
+        <label class="anahtar">
+          <input type="checkbox" role="switch" id="cerez-analitik" aria-labelledby="kat-analitik" aria-describedby="kat-analitik-aciklama">
+          <span class="anahtar-iz" aria-hidden="true"></span>
+        </label>
+      </li>
+    </ul>
+
+    <footer class="cerez-modal-alt">
+      <a href="{{ "gizlilik/" | relLangURL }}" class="cerez-modal-link">Gizlilik</a>
+      <div class="cerez-dugmeler">
+        <button type="submit" value="kaydet" class="cerez-btn">Seçimi kaydet</button>
+        <button type="submit" value="tumu" class="cerez-btn cerez-kabul">Tümünü kabul et</button>
+      </div>
+    </footer>
+  </form>
+</dialog>
+
 <script>
 (function () {
   var ANAHTAR = 'cerez-onayi';
   var bant = document.getElementById('cerez-bandi');
-  if (!bant) return;
+  var modal = document.getElementById('cerez-modal');
+  var analitik = document.getElementById('cerez-analitik');
+  if (!bant || !modal) return;
 
   function oku() { try { return localStorage.getItem(ANAHTAR); } catch (e) { return null; } }
   function yaz(v) { try { localStorage.setItem(ANAHTAR, v); } catch (e) {} }
 
-  // Önceden kabul edip sonra reddederse GA çerezlerini de temizle
   function gaCerezleriniSil() {
     document.cookie.split(';').forEach(function (c) {
       var ad = c.split('=')[0].trim();
@@ -30,10 +74,7 @@
     });
   }
 
-  bant.addEventListener('click', function (e) {
-    var b = e.target.closest('[data-secim]');
-    if (!b) return;
-    var secim = b.getAttribute('data-secim');
+  function uygula(secim) {
     yaz(secim);
     if (secim === 'kabul') {
       if (window.gaYukle) window.gaYukle();
@@ -42,13 +83,37 @@
       gaCerezleriniSil();
     }
     bant.hidden = true;
+  }
+
+  function modalAc() {
+    analitik.checked = oku() === 'kabul';
+    if (typeof modal.showModal === 'function') modal.showModal();
+    else modal.setAttribute('open', '');
+  }
+
+  // Bant düğmeleri
+  bant.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-secim]');
+    if (b) uygula(b.getAttribute('data-secim'));
+    if (e.target.closest('[data-modal-ac]')) modalAc();
   });
 
-  var tercih = document.getElementById('cerez-tercihleri');
-  if (tercih) tercih.addEventListener('click', function () {
-    bant.hidden = false;
-    bant.querySelector('[data-secim]').focus();
+  // Karar form gönderildiği anda verilir (close olayı eşzamansız, ona güvenme).
+  // method="dialog" formu modalı kendisi kapatır.
+  modal.querySelector('form').addEventListener('submit', function (e) {
+    var v = e.submitter && e.submitter.value;
+    if (v === 'tumu') uygula('kabul');
+    else if (v === 'kaydet') uygula(analitik.checked ? 'kabul' : 'red');
   });
+
+  // Arka plana tıklayınca kapat (kaydetmeden)
+  modal.addEventListener('click', function (e) {
+    if (e.target === modal) modal.close('kapat');
+  });
+
+  // Footer'daki "Çerez tercihleri" modalı açar
+  var tercih = document.getElementById('cerez-tercihleri');
+  if (tercih) tercih.addEventListener('click', modalAc);
 
   if (!oku()) bant.hidden = false;
 })();
