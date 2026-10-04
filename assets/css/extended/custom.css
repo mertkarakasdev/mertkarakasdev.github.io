@@ -698,8 +698,10 @@ body {
 .yorumlar { margin-top: 40px; }
 .yorumlar h2 { margin: 0 0 14px; font-size: 20px; line-height: 40px; color: var(--primary); }
 .yorumlar-kapali {
-  display: grid;
-  gap: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 24px;
   padding: 20px;
   border: 1px dashed var(--border);
   border-radius: var(--radius);
@@ -707,21 +709,31 @@ body {
   font-size: 14px;
   line-height: 1.6;
 }
-.yorumlar-kapali p { margin: 0; }
+.yorumlar-kapali p { margin: 0; flex: 1; }
+/* Sadece metin + ok, kutunun en sağında */
 .yorumlar-dugme {
-  justify-self: start;
-  padding: 9px 18px;
-  border-radius: 999px;
-  border: 1px solid var(--primary);
-  background: var(--primary);
-  color: var(--theme);
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--primary);
   font: inherit;
   font-weight: 600;
+  white-space: nowrap;
   cursor: pointer;
-  transition: opacity .15s ease;
+  text-underline-offset: .25rem;
 }
-.yorumlar-dugme:hover { opacity: .85; }
-.yorumlar-dugme:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
+.yorumlar-dugme svg { transition: transform .2s cubic-bezier(.2, .7, .2, 1); }
+.yorumlar-dugme:hover span { text-decoration: underline; }
+.yorumlar-dugme:hover svg { transform: translate(-2px, -2px); }
+.yorumlar-dugme:focus-visible { outline: 2px solid var(--primary); outline-offset: 4px; border-radius: 4px; }
+@media (max-width: 600px) {
+  .yorumlar-kapali { flex-direction: column; align-items: flex-end; }
+  .yorumlar-kapali p { align-self: stretch; }
+}
 .yorumlar.acik .yorumlar-kapali { display: none; }
 .yorumlar-alan { min-height: 0; }
 .yorumlar.acik .yorumlar-alan { min-height: 200px; animation: giris .4s cubic-bezier(.2, .7, .2, 1); }
@@ -729,16 +741,19 @@ body {
 .yorumlar.acik .yorumlar-alan { margin-top: -54px; }
 .yorumlar.acik h2 { position: relative; z-index: 1; pointer-events: none; display: inline-block; }
 
-/* ---------- Yazının iki yanında önceki / sonraki okları ---------- */
+/* ---------- Yazının iki yanında önceki / sonraki okları ----------
+   Ekrana değil yazıya bağlı: yazının dikey ortasında, kaydırınca yazıyla birlikte hareket eder.
+   Başlık balonu dışa doğru açılır (önceki solda, sonraki sağda). */
 .yazi-oklari { display: none; }
 
 @media (min-width: 1000px) {
+  .post-single { position: relative; }
   .yazi-oklari { display: block; }
   /* Oklar varken alttaki "Önceki / Sonraki" kutusu tekrar olur */
   body:has(.yazi-oklari) .paginav { display: none; }
 
   .yazi-oku {
-    position: fixed;
+    position: absolute;
     top: 50%;
     z-index: 30;
     display: grid;
@@ -752,11 +767,10 @@ body {
     color: var(--secondary);
     box-shadow: 0 4px 14px rgba(0, 0, 0, .08);
     transition: transform .25s cubic-bezier(.2, .7, .2, 1), color .2s ease, border-color .2s ease, box-shadow .25s ease;
-    animation: giris .5s .3s cubic-bezier(.2, .7, .2, 1) backwards;
   }
-  /* İçerik alanının hemen dışında, ekrana göre */
-  .yazi-oku-sol { left: max(16px, calc(50% - var(--main-width) / 2 - var(--gap) - 88px)); }
-  .yazi-oku-sag { right: max(16px, calc(50% - var(--main-width) / 2 - var(--gap) - 88px)); }
+  /* İçeriğin 40px dışında */
+  .yazi-oku-sol { right: calc(100% + 40px); }
+  .yazi-oku-sag { left: calc(100% + 40px); }
 
   .yazi-oku svg { width: 22px; height: 22px; }
   .yazi-oku:hover,
@@ -768,12 +782,12 @@ body {
     outline: none;
   }
 
-  /* Hover'da yazının başlığı okun yanında belirir */
   .yazi-oku-baslik {
     position: absolute;
     top: 50%;
     width: max-content;
-    max-width: 200px;
+    /* Okun dış tarafındaki boş alana sığsın: yarım ekran - içerik yarısı - ok mesafesi - kenar payı */
+    max-width: min(200px, calc(50vw - var(--main-width) / 2 - 40px - 48px - 12px - 16px));
     padding: 6px 10px;
     border-radius: 8px;
     background: var(--primary);
@@ -786,10 +800,15 @@ body {
     transition: opacity .2s ease, translate .25s ease;
   }
   .yazi-oku-baslik small { display: block; font-size: 11px; opacity: .7; text-transform: uppercase; letter-spacing: .04em; }
-  .yazi-oku-sol .yazi-oku-baslik { left: calc(100% + 12px); translate: -6px -50%; text-align: left; }
-  .yazi-oku-sag .yazi-oku-baslik { right: calc(100% + 12px); translate: 6px -50%; text-align: right; }
+  .yazi-oku-sol .yazi-oku-baslik { right: calc(100% + 12px); translate: 6px -50%; text-align: right; }
+  .yazi-oku-sag .yazi-oku-baslik { left: calc(100% + 12px); translate: -6px -50%; text-align: left; }
   .yazi-oku:hover .yazi-oku-baslik,
   .yazi-oku:focus-visible .yazi-oku-baslik { opacity: 1; translate: 0 -50%; }
+}
+
+/* Okun dışında balon için yeterli yer yoksa gösterme */
+@media (min-width: 1000px) and (max-width: 1239px) {
+  .yazi-oku-baslik { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
