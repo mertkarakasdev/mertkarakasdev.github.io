@@ -35,18 +35,10 @@
   .post-entry:focus-within::after { transform: none; }
 }
 
-/* Etiket / paylaş / sayfalama kutularının çerçeve ve arka planını kaldır.
-   (Tema post-single.css'te bunlara kutu stili veriyor; burada geri alınıyor.
-   .post-tags a'nın arka planı ayrı bir kuraldan geldiği için ona dokunulmuyor.) */
-.post-tags a,
-.share-buttons,
+/* Sayfalama kutusunun çerçeve ve arka planını kaldır (tema post-single.css'te veriyor) */
 .paginav {
   border: 0;
   border-radius: 0;
-}
-
-.share-buttons,
-.paginav {
   background: none;
 }
 
@@ -578,4 +570,125 @@ body {
 .md-content a.buton:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
 @media (prefers-reduced-motion: reduce) {
   .md-content a.buton, .md-content a.buton svg { transition: none; }
+}
+
+
+/* ---------- Yazı altı: etiketler + paylaş ---------- */
+.post-footer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 16px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+.post-footer > * { margin-bottom: 0; }
+.post-footer .post-tags { grid-column: 1; grid-row: 1; }
+.post-footer .paylas { grid-column: 2; grid-row: 1; }
+.post-footer .paginav { grid-column: 1 / -1; }
+
+/* Etiketler: yuvarlak, # önekli */
+.post-tags { gap: 8px; }
+.post-tags a {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--secondary);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+  transition: color .15s ease, border-color .15s ease, background-color .15s ease;
+}
+.post-tags a::before { content: "#"; margin-inline-end: 2px; opacity: .5; }
+.post-tags a:hover {
+  color: var(--primary);
+  border-color: var(--primary);
+  background: var(--code-bg);
+}
+
+/* Paylaş düğmesi ve menüsü */
+.paylas { position: relative; }
+.paylas-dugme {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--primary);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color .15s ease, border-color .15s ease;
+}
+.paylas-dugme svg { width: 15px; height: 15px; }
+.paylas-dugme:hover,
+.paylas.acik .paylas-dugme { background: var(--code-bg); border-color: var(--primary); }
+.paylas-dugme:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+
+.paylas-menu {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 8px);
+  z-index: 20;
+  min-width: 210px;
+  padding: 6px;
+  display: grid;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--entry);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, .18);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(6px) scale(.97);
+  transform-origin: bottom right;
+  transition: opacity .18s ease, transform .22s cubic-bezier(.2, .7, .2, 1), visibility 0s linear .22s;
+}
+.paylas.acik .paylas-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition: opacity .18s ease, transform .22s cubic-bezier(.2, .7, .2, 1), visibility 0s;
+}
+.paylas.asagi .paylas-menu {
+  bottom: auto;
+  top: calc(100% + 8px);
+  transform: translateY(-6px) scale(.97);
+  transform-origin: top right;
+}
+.paylas.asagi.acik .paylas-menu { transform: none; }
+
+.paylas-oge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 6px;
+  background: none;
+  color: var(--primary);
+  font: inherit;
+  font-size: 14px;
+  text-align: left;
+  cursor: pointer;
+}
+.paylas-oge svg { width: 17px; height: 17px; flex: none; color: var(--secondary); }
+.paylas-oge:hover,
+.paylas-oge:focus-visible { background: var(--code-bg); outline: none; }
+.paylas-oge:hover svg { color: var(--primary); }
+.paylas-oge[hidden] { display: none; }
+
+@media (max-width: 520px) {
+  .post-footer { grid-template-columns: 1fr; }
+  .post-footer .paylas { grid-column: 1; grid-row: auto; }
+  .paylas-menu { right: auto; left: 0; transform-origin: bottom left; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .paylas-menu, .post-tags a, .paylas-dugme { transition: none; }
 }

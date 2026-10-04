@@ -1,0 +1,105 @@
+{{- /* PaperMod'un paylaş ikonları yerine: tek "Paylaş" düğmesi, üstünde açılan menü.
+       İkonlar temanın svg.html setinden (footer'daki ikonlarla aynı). */ -}}
+{{- $url := .Permalink }}
+{{- $u := $url | urlquery }}
+{{- $b := .Title | plainify | urlquery }}
+{{- $secenekler := slice
+  (dict "ad" "X" "ikon" "x" "href" (printf "https://x.com/intent/post?text=%s&url=%s" $b $u))
+  (dict "ad" "LinkedIn" "ikon" "linkedin" "href" (printf "https://www.linkedin.com/sharing/share-offsite/?url=%s" $u))
+  (dict "ad" "WhatsApp" "ikon" "whatsapp" "href" (printf "https://api.whatsapp.com/send?text=%s%%20%s" $b $u))
+  (dict "ad" "Telegram" "ikon" "telegram" "href" (printf "https://t.me/share/url?url=%s&text=%s" $u $b))
+  (dict "ad" "Facebook" "ikon" "facebook" "href" (printf "https://www.facebook.com/sharer/sharer.php?u=%s" $u))
+  (dict "ad" "E-posta" "ikon" "email" "href" (printf "mailto:?subject=%s&body=%s" $b $u))
+}}
+<div class="paylas" data-url="{{ $url }}">
+  <div class="paylas-menu" id="paylas-menu" role="group" aria-label="Paylaşım seçenekleri">
+    {{- range $secenekler }}
+    <a class="paylas-oge" href="{{ .href | safeURL }}"
+       {{- if ne .ikon "email" }} target="_blank" rel="noopener noreferrer"{{ end }}>
+      {{- partial "svg.html" (dict "name" .ikon) -}}
+      <span>{{ .ad }}</span>
+    </a>
+    {{- end }}
+    <button type="button" class="paylas-oge" data-kopyala>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+      <span data-etiket>Bağlantıyı kopyala</span>
+    </button>
+    <button type="button" class="paylas-oge" data-yerel hidden>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg>
+      <span>Diğer</span>
+    </button>
+  </div>
+  <button type="button" class="paylas-dugme" aria-expanded="false" aria-controls="paylas-menu">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v13"/></svg>
+    <span>Paylaş</span>
+  </button>
+</div>
+<script>
+(function () {
+  var kok = document.currentScript.previousElementSibling;
+  var dugme = kok.querySelector('.paylas-dugme');
+  var menu = kok.querySelector('.paylas-menu');
+  var url = kok.dataset.url;
+
+  function ayarla(acik) {
+    if (acik) {
+      // Yukarıda yer yoksa (kısa yazı, sabit navbar) menüyü aşağı aç
+      var ust = document.querySelector('.header');
+      var sinir = ust ? ust.getBoundingClientRect().bottom : 0;
+      kok.classList.toggle('asagi', dugme.getBoundingClientRect().top - menu.offsetHeight - 8 < sinir);
+    }
+    kok.classList.toggle('acik', acik);
+    dugme.setAttribute('aria-expanded', acik ? 'true' : 'false');
+  }
+
+  dugme.addEventListener('click', function (e) {
+    e.stopPropagation();
+    ayarla(!kok.classList.contains('acik'));
+  });
+  document.addEventListener('click', function (e) {
+    if (kok.classList.contains('acik') && !kok.contains(e.target)) ayarla(false);
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && kok.classList.contains('acik')) { ayarla(false); dugme.focus(); }
+  });
+  menu.querySelectorAll('a').forEach(function (a) {
+    a.addEventListener('click', function () { ayarla(false); });
+  });
+
+  // Bağlantıyı kopyala
+  var kopyala = menu.querySelector('[data-kopyala]');
+  kopyala.addEventListener('click', function () {
+    var etiket = kopyala.querySelector('[data-etiket]');
+    function bitti(metin) {
+      etiket.textContent = metin;
+      setTimeout(function () { etiket.textContent = 'Bağlantıyı kopyala'; ayarla(false); }, 1200);
+    }
+    // Clipboard API reddedilirse (odak yok, eski tarayıcı) eski yönteme düş
+    function yedek() {
+      var t = document.createElement('textarea');
+      t.value = url;
+      t.setAttribute('readonly', '');
+      t.style.cssText = 'position:fixed;opacity:0;pointer-events:none';
+      document.body.appendChild(t);
+      t.select();
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch (e) {}
+      t.remove();
+      bitti(ok ? 'Kopyalandı' : 'Kopyalanamadı');
+    }
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(url).then(function () { bitti('Kopyalandı'); }, yedek);
+    } else { yedek(); }
+  });
+
+  // Telefonlarda sistemin paylaşım menüsü
+  var yerel = menu.querySelector('[data-yerel]');
+  if (navigator.share) {
+    yerel.hidden = false;
+    yerel.addEventListener('click', function () {
+      ayarla(false);
+      navigator.share({ title: document.title, url: url }).catch(function () {});
+    });
+  }
+})();
+</script>
